@@ -1,0 +1,23 @@
+/* CircuitNexus official web/app brand tokens, v1.0 */
+:root {
+  --cn-canvas:#FBF7EF; --cn-sidebar:#F4E9D8; --cn-surface:#FFFFFF;
+  --cn-text:#3E2E0B; --cn-text-secondary:#6F6659;
+  --cn-gold:#C79A3B; --cn-gold-text:#805C1E; --cn-on-gold:#221B12;
+  --cn-trace:#E6D6B8; --cn-border:#E4D9C7;
+  --cn-focus:#805C1E; --cn-hover:#F7EDD9;
+}
+[data-theme="dark"] {
+  --cn-canvas:#0D0E10; --cn-sidebar:#16181D; --cn-surface:#23262C;
+  --cn-text:#F2F4F7; --cn-text-secondary:#9AA0A6;
+  --cn-gold:#D4AF37; --cn-gold-text:#D4AF37; --cn-on-gold:#221B12;
+  --cn-trace:#3A3124; --cn-border:#3C3D42;
+  --cn-focus:#E8C875; --cn-hover:#2B2D33;
+}
+.cn-primary-button { background:var(--cn-gold); color:var(--cn-on-gold); }
+.cn-brand-label {color:var(--cn-gold-text)}
+.cn-focus:focus-visible {outline:2px solid var(--cn-focus); outline-offset:2px;}
+.cn-hero {background:var(--cn-canvas) center / cover no-repeat;}
+[data-theme="dark"] .cn-hero {background-image:url("./hero/hero-background-dark.svg");}
+[data-theme="light"] .cn-hero {background-image:url("./hero/hero-background-light.svg");}
+/* SVG feature icons all inherit their custom stroke via color=currentColor;
+   overwrite SVG's root color after inlining SVG or as a CSS mask. */
