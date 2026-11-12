@@ -35,6 +35,7 @@ CircuitNexus 不是普通硬件问答机器人，而是通过 **Agent + Skill + 
 | 暗色主题 | [Dark 主题规范](docs/THEME_DARK.md) |
 | 亮色主题 | [Light 主题规范](docs/THEME_LIGHT.md) |
 | 组件、排版、背景、可访问性 | [UI 设计规范](docs/UI_GUIDELINES.md) |
+| **新版 UI 欢迎页与双主题原型** | [视觉要求与原型图](docs/UI_VISUAL_SPEC_V1.md) · [设计交接](docs/UI_PROTOTYPE_HANDOFF.md) |
 | 矢量、图片、图标、来源与状态 | [素材清单](docs/ASSET_MANIFEST.md) |
 | DSH Fork 集成路径 | [技术集成计划](docs/INTEGRATION_PLAN.md) |
 | 决策/历史产物记录 | [设计决策日志](docs/DECISIONS.md) |

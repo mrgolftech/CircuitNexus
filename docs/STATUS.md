@@ -20,6 +20,13 @@
 | 官网页面视觉资源 / OG / 功能图标 | SVG 已入库，PNG 已自动生成 | `assets/brand/website/` 与 `assets/exports/website/`；网站本身尚未部署 |
 | Landing Page 实际部署 | 规划中 | 视觉资源可用，网站未由本次任务部署 |
 
+## 2026-11-12 UI 视觉交付
+
+- [x] 新版产品标志、欢迎页文案与 Dark/Light 设计原型已归档。
+- [x] 三张原始 PNG：暗色欢迎页、亮色欢迎页、对角双色宣传图已推送至 `assets/ui/prototypes/`。
+- [x] 已归档 [设计视觉约束](UI_VISUAL_SPEC_V1.md) 与 [开发交接说明](UI_PROTOTYPE_HANDOFF.md)。
+- [ ] 将原型真正集成到 DSH Fork 后的客户端，运行时截图验收仍未完成。
+
 ## V0.1 软件验收
 - [ ] 应用名、图标、任务栏、安装器完全统一为 CircuitNexus；
 - [ ] 深浅主题切换正确、首帧无闪屏；

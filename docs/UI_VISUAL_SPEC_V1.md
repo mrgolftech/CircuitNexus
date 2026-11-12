@@ -8,15 +8,15 @@
 
 | 设计参考 | 文件 | 使用目的 |
 |---|---|---|
-| 暗色应用欢迎页 | [dark-welcome.webp](../assets/ui/prototypes/dark-welcome.webp) | Dark 主题客户端基准 |
-| 亮色应用欢迎页 | [light-welcome.webp](../assets/ui/prototypes/light-welcome.webp) | Light 主题客户端基准 |
-| 黑金/暖白金对角拼合 | [theme-split-diagonal.webp](../assets/ui/prototypes/theme-split-diagonal.webp) | 网站宣传、发布页、功能介绍中的双主题对照；**不是实际客户端布局** |
+| 暗色应用欢迎页 | [dark-welcome.png](../assets/ui/prototypes/dark-welcome.png) | Dark 主题客户端基准 |
+| 亮色应用欢迎页 | [light-welcome.png](../assets/ui/prototypes/light-welcome.png) | Light 主题客户端基准 |
+| 黑金/暖白金对角拼合 | [theme-split-diagonal.png](../assets/ui/prototypes/theme-split-diagonal.png) | 网站宣传、发布页、功能介绍中的双主题对照；**不是实际客户端布局** |
 
-![暗色欢迎页](../assets/ui/prototypes/dark-welcome.webp)
-![亮色欢迎页](../assets/ui/prototypes/light-welcome.webp)
-![对角线拼合宣传图](../assets/ui/prototypes/theme-split-diagonal.webp)
+![暗色欢迎页](../assets/ui/prototypes/dark-welcome.png)
+![亮色欢迎页](../assets/ui/prototypes/light-welcome.png)
+![对角线拼合宣传图](../assets/ui/prototypes/theme-split-diagonal.png)
 
-**来源说明**：三张图来自本次设计会话生成的 UI 原型；图像是视觉参考，并非运行时真实截图。仓库提供的 WebP 是轻量化展示导出，原始 PNG 可在独立设计历史存档中追溯。以 SVG Logo 和主题 Token 作为开发源，不从效果图抽取颜色。
+**来源说明**：三张图来自本次设计会话生成的 UI 原型；图像是视觉参考，并非运行时真实截图。仓库中直接保存本轮三张原始 PNG 设计原型，非压缩二次生成图。原型属于视觉概念稿，不是实际运行截图。以 SVG Logo 和主题 Token 作为开发源，不从效果图抽取颜色。
 
 ## 2. 设计定稿内容
 

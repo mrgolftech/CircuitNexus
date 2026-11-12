@@ -68,3 +68,15 @@
 - [ ] 商标/域名/近似 Logo 查重及第三方许可归档。
 
 完整来源与迭代见 [决策日志](DECISIONS.md)。
+
+## G. 欢迎页与双主题展示图（2026-11-12 定稿）
+
+三张用户确认的视觉原型**已按原始 PNG 文件入库**，见 [UI 视觉规范](UI_VISUAL_SPEC_V1.md)：
+
+| 资产 | 用途 | 类型 |
+|---|---|---|
+| [dark-welcome.png](../assets/ui/prototypes/dark-welcome.png) | 暗色工作台欢迎页设计比对 | PNG 原型，非真实截图 |
+| [light-welcome.png](../assets/ui/prototypes/light-welcome.png) | 亮色工作台欢迎页设计比对 | PNG 原型，非真实截图 |
+| [theme-split-diagonal.png](../assets/ui/prototypes/theme-split-diagonal.png) | 官网宣传的对角双色展示 | PNG 营销合成图，非可交互模式 |
+
+要求：左上角品牌为 CircuitNexus（不再是 HardBuddy），欢迎标题为「开启智能硬件研发工作流」，副标题为「CircuitNexus · AI 硬件研发工作台」。图片右下原型配色建议面板应当视为设计辅助物，正式应用必须去除。工程实现的颜色与布局以设计 Token 和 UI 规范为准。
