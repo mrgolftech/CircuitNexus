@@ -14,6 +14,11 @@
 | `assets/themes/pcb/*-welcome.svg` | SVG | 欢迎页四角 PCB 背景 | V1 重建 |
 | `assets/themes/pcb/*-overlay.svg` | SVG | 透明背景叠层 | V1 重建 |
 | `assets/brand/website/hero-background-*.svg` | SVG | 官网 Hero | V1 |
+| `assets/brand/website/feature-icons/*.svg` | SVG | 官网 8 组功能图标 | V1 |
+| `assets/brand/website/og-card-*.svg` | SVG | 社交分享卡片 | V1 |
+| `assets/brand/app-icons/app-icon-*.svg` | SVG | 深/浅/板卡绿应用图标 | V1 |
+| `assets/guides/theme-*-board.svg` | SVG | 两种主题设计准则看板 | V1 |
+| `assets/exports/` | PNG / ICO | 自动导出的发布与预览格式 | 由 Actions 生成 |
 | `assets/tokens/circuitnexus-brand.{css,json}` | 文本 | 全局品牌变量 | V1 |
 | `assets/tokens/circuitnexus-theme-tokens.{css,json}` | 文本 | 深浅双主题 | V1 |
 
@@ -27,7 +32,7 @@
 - Hero：亮色/暗色 SVG 及 PNG 效果预览；
 - 预览样机、配色 CSS/JSON、资产生成源码。
 
-**重要：** GitHub 版本以此清单中“当前仓库”列出的路径为准。PNG/ICO 二进制、预览稿及另外一些 Logo 变体若尚未通过仓库提交校验，就不能宣称已经入库；请使用 [素材导出脚本](../tools/export_assets.py) 从 SVG 生成标准 PNG/ICO，并与对话中的完整 ZIP 对照。
+**重要：** 当前仓库已经由 GitHub Actions 自动从提交的 SVG 母版生成 PNG/ICO，存放在 `assets/exports/`。这与此前对话完整 ZIP 中的**原始预览图片**不是完全相同的文件来源；历史 PNG、参考截图及被否决的构图仍单独记录，不视作发布资产。需要时可执行 [素材导出脚本](../tools/export_assets.py) 在本地重新构建。
 
 ## C. PCB 纹理中间产物
 本轮历史包含 `CircuitNexus_PCB_Backgrounds_SVG_V1.zip`：
@@ -56,7 +61,8 @@
 | 产品说明 / 演示 | 暗色/亮色 UI 预览 | 1920×1080 / 1440×900 |
 
 ## F. 补全待办
-- [ ] 二进制 PNG/ICO 与预览图上传并核对哈希；
+- [x] 当前正式 SVG 的 PNG/ICO 已由导出流程自动生成入库；
+- [ ] 与早期完整素材包逐个核对差异与哈希；
 - [ ] 8 组功能图标全部统一到同一图标尺寸和视觉基准；
 - [ ] 最终 SVG 比例和小图标清晰度逐尺寸验收；
 - [ ] 商标/域名/近似 Logo 查重及第三方许可归档。
