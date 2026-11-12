@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-label="CircuitNexus Dark · 石墨黑金 UI 设计规范">
+<style>text{font-family:'Noto Sans CJK SC','Microsoft YaHei UI','Segoe UI',sans-serif} .bold{font-weight:700}.muted{font-size:18px;fill:#9AA0A6}.label{font-size:19px;fill:#F2F4F7}.small{font-size:15px;fill:#9AA0A6}</style>
+<rect width="1600" height="900" fill="#0D0E10"/>
+<path d="M 0 84 H 230 L 272 42 H 420 M 1180 0 L 1138 42 H 1035" fill="none" stroke="#D4AF37" opacity=".65" stroke-width="2"/>
+<text x="42" y="70" font-size="36" class="bold" fill="#F2F4F7">CircuitNexus · 电路智枢</text><text x="1542" y="67" font-size="23" text-anchor="end" fill="#D4AF37">Dark · 石墨黑金 / DESIGN SYSTEM V1.0</text>
+<line x1="42" y1="102" x2="1558" y2="102" stroke="#34353A"/>
+<rect x="40" y="128" width="960" height="590" rx="20" fill="#1D2025" stroke="#34353A" stroke-width="2"/>
+<text x="68" y="164" font-size="24" fill="#F2F4F7" class="bold">01 / Desktop 工作台参考</text>
+<rect x="66" y="187" width="908" height="495" rx="13" fill="#0D0E10" stroke="#34353A"/>
+<rect x="66" y="187" width="908" height="37" rx="12" fill="#16181D"/><rect x="66" y="213" width="908" height="11" fill="#16181D"/>
+<text x="86" y="212" class="small">应用　编辑　查看</text><text x="947" y="212" text-anchor="end" class="small">—　□　×</text>
+<rect x="66" y="224" width="205" height="458" fill="#16181D"/>
+<text x="89" y="270" font-size="19" font-weight="700" fill="#F2F4F7">⬡ CircuitNexus</text>
+<rect x="85" y="293" width="169" height="43" rx="11" fill="#3A3020" stroke="#D4AF37" stroke-opacity=".35"/><text x="124" y="321" class="label">＋ 新会话</text>
+<text x="92" y="380" class="label">原理图审查</text><text x="92" y="427" class="label">原理图设计</text><text x="92" y="474" class="label">电源树分析</text><text x="92" y="521" class="label">器件分析</text><text x="92" y="568" class="label">工作区</text>
+<path d="M 272 305 H 354 L 383 274 H 444 M 974 284 H 881 L 849 316 H 794 M 272 630 H 337 L 372 657 H 446 M 974 621 H 902 L 872 655 H 792" fill="none" stroke="#3A3124" stroke-width="2.2" opacity=".82"/>
+<circle cx="444" cy="274" r="7" fill="#0D0E10" stroke="#D4AF37" opacity=".5"/><circle cx="444" cy="274" r="2.5" fill="#D4AF37" opacity=".5"/><circle cx="794" cy="316" r="7" fill="#0D0E10" stroke="#D4AF37" opacity=".5"/><circle cx="794" cy="316" r="2.5" fill="#D4AF37" opacity=".5"/><circle cx="446" cy="657" r="7" fill="#0D0E10" stroke="#D4AF37" opacity=".5"/><circle cx="446" cy="657" r="2.5" fill="#D4AF37" opacity=".5"/><circle cx="792" cy="655" r="7" fill="#0D0E10" stroke="#D4AF37" opacity=".5"/><circle cx="792" cy="655" r="2.5" fill="#D4AF37" opacity=".5"/>
+<text x="622" y="403" font-size="30" fill="#F2F4F7" font-weight="700" text-anchor="middle">让我们一起做好硬件设计</text>
+<rect x="335" y="442" width="570" height="128" rx="18" fill="#23262C" stroke="#34353A" stroke-width="2"/>
+<text x="360" y="479" font-size="19" fill="#9AA0A6">描述硬件设计任务、上传网表或参考资料…</text>
+<circle cx="369" cy="539" r="17" fill="#3A3020"/><text x="369" y="547" text-anchor="middle" font-size="26" fill="#F2F4F7">+</text>
+<rect x="839" y="518" width="46" height="38" rx="13" fill="#D4AF37"/><text x="862" y="545" text-anchor="middle" font-size="27" fill="#221B12">↑</text>
+<text x="304" y="611" class="small">仅欢迎页展示低对比 PCB 装饰 · 正文与工程报告隐藏</text>
+<rect x="1020" y="128" width="540" height="590" rx="20" fill="#1D2025" stroke="#34353A" stroke-width="2"/>
+<text x="1050" y="164" font-size="24" font-weight="700" fill="#F2F4F7">02 / 核心配色</text>
+<rect x="1050" y="203" width="92" height="46" rx="8" fill="#0D0E10" stroke="#34353A" stroke-width="2"/><text x="1163" y="221" font-size="19" fill="#F2F4F7" font-weight="600">主画布</text><text x="1163" y="245" font-size="16" fill="#9AA0A6">#0D0E10</text><rect x="1050" y="272" width="92" height="46" rx="8" fill="#16181D" stroke="#34353A" stroke-width="2"/><text x="1163" y="290" font-size="19" fill="#F2F4F7" font-weight="600">侧边栏</text><text x="1163" y="314" font-size="16" fill="#9AA0A6">#16181D</text><rect x="1050" y="341" width="92" height="46" rx="8" fill="#23262C" stroke="#34353A" stroke-width="2"/><text x="1163" y="359" font-size="19" fill="#F2F4F7" font-weight="600">卡片/输入</text><text x="1163" y="383" font-size="16" fill="#9AA0A6">#23262C</text><rect x="1050" y="410" width="92" height="46" rx="8" fill="#F2F4F7" stroke="#34353A" stroke-width="2"/><text x="1163" y="428" font-size="19" fill="#F2F4F7" font-weight="600">主文字</text><text x="1163" y="452" font-size="16" fill="#9AA0A6">#F2F4F7</text><rect x="1050" y="479" width="92" height="46" rx="8" fill="#9AA0A6" stroke="#34353A" stroke-width="2"/><text x="1163" y="497" font-size="19" fill="#F2F4F7" font-weight="600">次文字</text><text x="1163" y="521" font-size="16" fill="#9AA0A6">#9AA0A6</text><rect x="1050" y="548" width="92" height="46" rx="8" fill="#D4AF37" stroke="#34353A" stroke-width="2"/><text x="1163" y="566" font-size="19" fill="#F2F4F7" font-weight="600">品牌金</text><text x="1163" y="590" font-size="16" fill="#9AA0A6">#D4AF37</text><rect x="1050" y="617" width="92" height="46" rx="8" fill="#3A3124" stroke="#34353A" stroke-width="2"/><text x="1163" y="635" font-size="19" fill="#F2F4F7" font-weight="600">PCB 纹理</text><text x="1163" y="659" font-size="16" fill="#9AA0A6">#3A3124</text>
+<rect x="40" y="739" width="960" height="127" rx="17" fill="#1D2025" stroke="#34353A" />
+<text x="67" y="773" font-size="22" fill="#F2F4F7" font-weight="700">03 / 交互与排版约束</text>
+<text x="68" y="810" class="label">唯一金色主 CTA　 ·　正文 14–16px　 ·　间距 8/12/16/24/32px</text>
+<text x="68" y="844" class="label">Focus 2px　 ·　组件状态清晰　 ·　长文本对比度目标 ≥4.5:1</text>
+<rect x="1020" y="739" width="540" height="127" rx="17" fill="#1D2025" stroke="#34353A"/>
+<text x="1050" y="773" font-size="22" fill="#F2F4F7" font-weight="700">04 / 禁止项</text>
+<text x="1050" y="810" font-size="17" fill="#F2F4F7">禁止金色泛滥 / 重发光 / 纹理遮挡正文</text>
+<text x="1050" y="842" font-size="17" fill="#F2F4F7">禁止低对比灰字及金色充当告警状态</text>
+</svg>
