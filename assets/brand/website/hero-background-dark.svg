@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 760" >
+<defs>
+      <radialGradient id="ambient" cx=".76" cy=".48" r=".67"><stop stop-color="#46331D" stop-opacity="0.48"/><stop offset="1" stop-color="#0D0E10" stop-opacity="0"/></radialGradient>
+      <pattern id="dot" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#716147" opacity="0.18"/></pattern>
+      <linearGradient id="fadeLine" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#C09434" stop-opacity="0"/><stop offset=".38" stop-color="#C09434" stop-opacity=".3"/><stop offset="1" stop-color="#C09434" stop-opacity=".7"/></linearGradient>
+    </defs>
+<rect width="1600" height="760" fill="#0D0E10"/>
+<rect width="1600" height="760" fill="url(#ambient)"/>
+<rect width="1600" height="760" fill="url(#dot)"/>
+<path d="M1060 0 V100 L1156 196 H1440 L1540 296 H1600" fill="none" stroke="url(#fadeLine)" stroke-width="2.3" stroke-linejoin="bevel"/>
+<path d="M1132 0 V81 L1225 174 H1460 L1560 274 H1600" fill="none" stroke="url(#fadeLine)" stroke-width="2.3" stroke-linejoin="bevel"/>
+<path d="M1600 482 H1480 L1360 602 H1120 L1010 712" fill="none" stroke="url(#fadeLine)" stroke-width="1.8" stroke-linejoin="bevel"/>
+<path d="M1600 552 H1518 L1390 680 H1174 L1094 760" fill="none" stroke="url(#fadeLine)" stroke-width="1.8" stroke-linejoin="bevel"/>
+<path d="M1220 0 V52 L1288 120 H1600" fill="none" stroke="url(#fadeLine)" stroke-width="1.8" stroke-linejoin="bevel"/>
+<circle cx="1060" cy="100" r="8" fill="#0D0E10" stroke="#C09434" stroke-width="2.5" opacity=".78"/><circle cx="1060" cy="100" r="3" fill="#C09434" opacity=".7"/>
+<circle cx="1440" cy="196" r="8" fill="#0D0E10" stroke="#C09434" stroke-width="2.5" opacity=".78"/><circle cx="1440" cy="196" r="3" fill="#C09434" opacity=".7"/>
+<circle cx="1360" cy="602" r="8" fill="#0D0E10" stroke="#C09434" stroke-width="2.5" opacity=".78"/><circle cx="1360" cy="602" r="3" fill="#C09434" opacity=".7"/>
+<circle cx="1390" cy="680" r="8" fill="#0D0E10" stroke="#C09434" stroke-width="2.5" opacity=".78"/><circle cx="1390" cy="680" r="3" fill="#C09434" opacity=".7"/>
+<circle cx="1288" cy="120" r="8" fill="#0D0E10" stroke="#C09434" stroke-width="2.5" opacity=".78"/><circle cx="1288" cy="120" r="3" fill="#C09434" opacity=".7"/>
+</svg>
