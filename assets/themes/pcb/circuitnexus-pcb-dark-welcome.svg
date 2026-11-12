@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice"
+ role="img" aria-label="CircuitNexus dark theme PCB trace background">
+  <title>CircuitNexus · Dark PCB Background Welcome</title>
+  <desc>Fully editable vector circuit paths, pads, dotted drafting grid and a subtle radial gradient fill.</desc>
+  <defs>
+    <radialGradient id="bg" cx="52%" cy="47%" r="76%" gradientTransform="translate(0 0)">
+          <stop offset="0%" stop-color="#1B1918"/>
+          <stop offset="47%" stop-color="#121316"/>
+          <stop offset="100%" stop-color="#0D0E10"/>
+        </radialGradient>
+    <linearGradient id="copper" x1="0" y1="0" x2="1" y2="1" objectBoundingBox="true">
+          <stop offset="0%" stop-color="#725224"/>
+          <stop offset="50%" stop-color="#C59642"/>
+          <stop offset="100%" stop-color="#E0B452"/>
+        </linearGradient>
+    <pattern id="dot-grid" width="25" height="25" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="0.82" fill="#827762" opacity="0.20"/>
+    </pattern>
+  </defs>
+  <rect width="1440" height="900" fill="url(#bg)"/>
+  <rect width="1440" height="900" fill="url(#dot-grid)"/>
+  <g id="circuit-traces" stroke="url(#copper)" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <g id="main-traces" stroke-width="1.6" opacity="0.76">
+  <path d="M-24 118 H144 Q155 118 164 109 L208 65 Q215 58 229 58 H324 L354 28 Q358 24 364 24 H465 L501 -12"/>
+  <path d="M-10 136 H138 Q153 136 164 125 L207 82 Q214 75 223 75 H313"/>
+  <path d="M1454 136 H1383 Q1374 136 1367 129 L1328 90 Q1321 83 1311 83 H1245 L1205 43 Q1201 39 1193 39 H1088 L1044 -7"/>
+  <path d="M1454 157 H1373 L1322 106 Q1317 101 1307 101 H1243"/>
+  <path d="M-18 711 H111 Q120 711 127 718 L180 771 Q187 778 197 778 H231"/>
+  <path d="M-18 733 H103 Q114 733 121 741 L212 832 Q220 840 229 840 H423 L485 902"/>
+  <path d="M1454 860 H1335 Q1327 860 1319 868 L1286 901"/>
+    </g>
+    <g id="secondary-traces" stroke-width="1.05" opacity="0.35">
+  <path d="M-18 95 H114 L165 44 Q171 38 180 38 H305 L336 7 H465"/>
+  <path d="M1450 116 H1392 L1330 54 H1255 L1205 4"/>
+  <path d="M-20 693 H110 L180 763 H215"/>
+  <path d="M1446 883 H1336 L1318 900"/>
+    </g>
+  </g>
+  <g id="pads-and-symbols">
+<circle cx="354" cy="28" r="13" fill="#D79C35" opacity="0.065"/>
+        <circle cx="354" cy="28" r="9" fill="none" stroke="#E5B751" stroke-width="1.7" opacity="0.95"/>
+        <circle cx="354" cy="28" r="4" fill="#E5B751" opacity="0.9"/>
+<circle cx="1367" cy="129" r="12" fill="#D79C35" opacity="0.065"/>
+        <circle cx="1367" cy="129" r="8" fill="none" stroke="#E5B751" stroke-width="1.7" opacity="0.95"/>
+        <circle cx="1367" cy="129" r="4" fill="#E5B751" opacity="0.9"/>
+<circle cx="180" cy="771" r="13" fill="#D79C35" opacity="0.065"/>
+        <circle cx="180" cy="771" r="9" fill="none" stroke="#E5B751" stroke-width="1.7" opacity="0.95"/>
+        <circle cx="180" cy="771" r="4" fill="#E5B751" opacity="0.9"/>
+<circle cx="1335" cy="860" r="12" fill="#D79C35" opacity="0.065"/>
+        <circle cx="1335" cy="860" r="8" fill="none" stroke="#E5B751" stroke-width="1.7" opacity="0.95"/>
+        <circle cx="1335" cy="860" r="4" fill="#E5B751" opacity="0.9"/>
+<g fill="none" stroke="#D1A14A" stroke-width="1.4" opacity="0.74">
+    <path d="M217 125.5 H241 M271 125.5 H295"/>
+    <rect x="241" y="117" width="30" height="17" rx="3"/>
+    </g>
+<g fill="none" stroke="#D1A14A" stroke-width="1.4" opacity="0.74">
+    <path d="M261 799.5 H285 M316 799.5 H340"/>
+    <rect x="285" y="792" width="31" height="15" rx="3"/>
+    </g>
+<g fill="none" stroke="#D1A14A" stroke-width="1.35" stroke-linecap="round" opacity="0.66">
+      <path d="M1135 92 H1155 M1169 92 H1189 M1155 79 V105 M1169 79 V105" />
+    </g>
+  </g>
+</svg>
