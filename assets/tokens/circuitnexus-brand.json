@@ -1,0 +1,56 @@
+{
+  "name": "CircuitNexus 电路智枢",
+  "asset_version": "1.0.0",
+  "logo_standard": "flat 1-color gold vector C with three parallel constant-width 45-degree PCB traces",
+  "colors": {
+    "dark": {
+      "canvas": "#0D0E10",
+      "sidebar": "#16181D",
+      "surface": "#23262C",
+      "primaryText": "#F2F4F7",
+      "secondaryText": "#9AA0A6",
+      "brandGold": "#D4AF37",
+      "trace": "#3A3124"
+    },
+    "light": {
+      "canvas": "#FBF7EF",
+      "sidebar": "#F4E9D8",
+      "surface": "#FFFFFF",
+      "primaryText": "#3E2E0B",
+      "secondaryText": "#6F6659",
+      "brandGold": "#C79A3B",
+      "symbolGold": "#9B7227",
+      "textGoldAccessible": "#805C1E",
+      "trace": "#E6D6B8"
+    },
+    "boardGreenOptional": {
+      "canvas": "#103A31",
+      "brandGold": "#D4AF37"
+    }
+  },
+  "geometry": {
+    "symbolViewBox": "0 0 256 256",
+    "vectorFromReference": "900x900 cropped reference reconstructed to constant-width paths",
+    "internalTraceWidth": 8.1,
+    "traceSegments45degrees": true,
+    "padRadius": 7.83,
+    "padRingStrokeWidth": 8.1,
+    "outerCStrokeWidth": 24.84
+  },
+  "usage": {
+    "appIcon": "app-icons/svg/app-icon-dark.svg",
+    "mainLogoDark": "logo/circuitnexus-logo-dark.svg",
+    "mainLogoLight": "logo/circuitnexus-logo-light.svg",
+    "websiteFavicon": "app-icons/svg/favicon.svg"
+  },
+  "featureIcons": [
+    "schematic-design",
+    "netlist-analysis",
+    "circuit-review",
+    "power-tree",
+    "pcb-si",
+    "knowledge-base",
+    "engineering-report",
+    "eda-integration"
+  ]
+}
