@@ -1,0 +1,29 @@
+# Developer machines and secrets
+.env
+.env.*
+!.env.example
+node_modules/
+dist/
+build/
+.cache/
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+
+# Production logs / temporary exports
+*.log
+tmp/
+temp/
+*.bak
+
+# Internal/customer schematic/netlist data must stay out of public repo
+private/
+secrets/
+confidential/
+customer-data/
+*.dsn
+*.brd
+pstxnet.dat
+pstxprt.dat
+pstchip.dat
