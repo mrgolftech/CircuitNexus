@@ -1,0 +1,131 @@
+# 硬件评审模式（agent preset: hw-review）
+#
+# 一个 @deepseek-ai/dsh-agent-preset 声明，插在 web patch 之后。
+# 新建会话的模式列表里会多出「硬件评审」一项；已存在的会话不受影响。
+#
+# 与 shipped `standard` 的差别：
+#   去掉  tool-schedule / present / tool-plugin-manager / tool-plugin-market
+#   改    persona（证据优先）、plan-mode section（只勘察不写盘）
+#   保留  fs / fs-search / skill / goal / plan / compaction / delegation / todo / web
+#
+# 注意：preset 管不到沙箱。要让「评审绝不改原始资料」成立，还需要 Host 侧的
+# permission preset（sandbox: read-only），preset 层无法强制。
+
+- insert:
+    - id: preset-hw-review
+      name: '@deepseek-ai/dsh-agent-preset'
+      config:
+        id: hw-review
+        name: 硬件评审
+        description: 以网表、BOM、数据手册为证据来源的原理图评审，每项结论须可追溯到 net/pin 与手册页码
+        order: 0
+        plugins:
+          - id: persona
+            name: '@deepseek-ai/dsh-persona'
+            config:
+              prefix: |
+                你是硬件设计工作台的原理图评审 Agent，服务对象是一名有多年经验的硬件工程师。
+
+                事实优先级：网表引脚连接 > BOM > 数据手册 > 命名约定 > 经验推断。
+                任何连接关系必须能追溯到具体的 net 与 pin；任何器件参数必须能追溯到数据手册的型号、页码与修订版本。
+
+                每个检查项必须给出三样东西：判定方式（确定性检查 / 辅助判断 / 人工确认）、证据引用、结论。
+                结论只有三种：已证实问题 / 疑似待确认 / 已核对通过。
+                禁止把推断写成已验证；禁止用「基本没问题」这类模糊表述；证据不足就明确说证据不足，不要补全成合理故事。
+
+                先给结论，再给依据与风险；主动指出隐患，不迎合用户的判断。
+          - id: agent-instructions
+            name: '@deepseek-ai/dsh-agent-instructions'
+            config:
+              maxBytes: 98304
+              # 默认候选只有 AGENTS.md / CLAUDE.md；把工作台地图也纳入加载链，
+              # 这样改 WORKBENCH.md 不必重装 preset。
+              instructionFileCandidates:
+                - AGENTS.md
+                - CLAUDE.md
+                - WORKBENCH.md
+          - id: time-context
+            name: '@deepseek-ai/dsh-time-context'
+          - id: tool-pwsh
+            name: '@deepseek-ai/dsh-tool-pwsh'
+          - id: tool-fs
+            name: '@deepseek-ai/dsh-tool-fs'
+          - id: tool-fs-search
+            name: '@deepseek-ai/dsh-tool-fs-search'
+            config:
+              # 必填：省略会报 "$.sampleOverCapGlobResults missing required value"
+              sampleOverCapGlobResults: false
+          - id: skill-filesystem
+            name: '@deepseek-ai/dsh-skill-filesystem'
+          - id: tool-skill
+            name: '@deepseek-ai/dsh-tool-skill'
+          - id: command-goal
+            name: '@deepseek-ai/dsh-command-goal'
+          - id: tool-goal
+            name: '@deepseek-ai/dsh-tool-goal'
+          - id: planning
+            name: cordis:group
+            group: true
+            isolate:
+              planMode: true
+            config:
+              - id: plan-mode
+                name: '@deepseek-ai/dsh-plan-mode'
+                config:
+                  section: |
+                    你在计划模式：只做勘察——读网表、查器件、核对数据手册，不写文件、不改工程。
+                    计划必须决策完备：评审范围、检查项清单、每项的证据门槛、需要的数据源、验收方式、已知盲区。
+                    准备好后用 exit_plan_mode 提交，不要在正文里问「要不要开始」。
+          - id: compaction
+            name: cordis:group
+            group: true
+            isolate:
+              compaction: true
+              toolResultPruner: true
+            config:
+              - id: compaction-basic
+                name: '@deepseek-ai/dsh-compaction-basic'
+              - id: tool-result-pruner
+                name: '@deepseek-ai/dsh-compaction-tool-result-pruner'
+                config:
+                  thresholdChars: 8192
+                  headChars: 4096
+                  tailChars: 1024
+          - id: delegation
+            name: cordis:group
+            group: true
+            isolate:
+              workflowEngine: true
+            config:
+              - id: tool-subagent-control
+                name: '@deepseek-ai/dsh-tool-subagent-control'
+              - id: tool-subagent-list-agents
+                name: '@deepseek-ai/dsh-tool-subagent-control/list-agents'
+              - id: tool-subagent
+                name: '@deepseek-ai/dsh-tool-subagent'
+                config:
+                  provider: spawn
+                  toolName: subagent
+                  modelSelectionSettings: true
+              - id: tool-subagent-fork
+                name: '@deepseek-ai/dsh-tool-subagent'
+                config:
+                  provider: fork
+                  toolName: subagent_fork
+              - id: workflow-ptc
+                name: '@deepseek-ai/dsh-workflow-ptc'
+                config:
+                  provider: spawn
+              - id: tool-workflow
+                name: '@deepseek-ai/dsh-tool-workflow'
+          - id: tool-ask-user
+            name: '@deepseek-ai/dsh-tool-ask-user'
+          - id: tool-todo
+            name: '@deepseek-ai/dsh-tool-todo'
+            config:
+              allowParallelInProgress: true
+          - id: tool-web
+            name: '@deepseek-ai/dsh-tool-web'
+            config:
+              fetch: true
+              searchTimeoutMs: 60000

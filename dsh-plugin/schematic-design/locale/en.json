@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Schematic Design",
+    "description": "KiCad schematic design workbench: enter requirements and reference material, let the Agent load the hw-design Skill for requirements analysis and part selection, then call KiCad MCP to build the schematic symbol library and generate the schematic."
+  }
+}

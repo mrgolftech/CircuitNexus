@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "原理图审查",
+    "description": "OrCAD 原理图审查工作台：选取 PST 网表工程、生成 hardwarecheck 命令，并浏览 199 条审查清单目录。"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "@local/dsh-hw-preset",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Hardware review agent preset for the dsh workbench",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

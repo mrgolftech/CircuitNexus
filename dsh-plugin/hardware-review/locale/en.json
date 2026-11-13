@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Schematic Review",
+    "description": "OrCAD schematic review workbench: pick a PST netlist design, compose hardwarecheck commands, and browse the 199-entry review catalog."
+  }
+}

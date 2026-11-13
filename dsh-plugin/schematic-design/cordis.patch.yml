@@ -1,0 +1,3 @@
+- insert:
+    - id: schematic-design
+      name: '@local/dsh-plugin-schematic-design'

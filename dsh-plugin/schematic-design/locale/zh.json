@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "原理图设计",
+    "description": "KiCad 原理图辅助设计工作台：录入设计需求与参考资料，由 Agent 加载 hw-design Skill 完成需求分析与器件选型，再调用 KiCad MCP 建立原理图符号库并生成原理图。"
+  }
+}

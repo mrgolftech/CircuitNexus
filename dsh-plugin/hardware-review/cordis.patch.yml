@@ -1,0 +1,3 @@
+- insert:
+    - id: hardware-review
+      name: '@local/dsh-plugin-hardware-review'

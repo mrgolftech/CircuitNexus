@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Schematic Design">
+  <title>Schematic Design</title>
+  <!-- Original artwork: a component body on a net, with a design "+" marker. -->
+  <!-- Board outline -->
+  <rect x="5" y="5" width="54" height="54" rx="9"
+        fill="none" stroke="currentColor" stroke-width="3" opacity="0.55"/>
+
+  <!-- Nets -->
+  <g stroke="currentColor" stroke-width="2.8" fill="none" stroke-linecap="round">
+    <path d="M10 24 H18"/>
+    <path d="M46 24 H54"/>
+    <path d="M32 42 V50"/>
+  </g>
+
+  <!-- Component body -->
+  <rect x="18" y="16" width="28" height="16" rx="2.5"
+        fill="none" stroke="currentColor" stroke-width="3.2"/>
+  <circle cx="10" cy="24" r="2.8" fill="currentColor"/>
+  <circle cx="54" cy="24" r="2.8" fill="currentColor"/>
+  <circle cx="32" cy="50" r="2.8" fill="currentColor"/>
+
+  <!-- Design "+" marker -->
+  <g stroke="currentColor" stroke-width="4" stroke-linecap="round">
+    <line x1="32" y1="37" x2="32" y2="47"/>
+    <line x1="27" y1="42" x2="37" y2="42"/>
+  </g>
+</svg>
