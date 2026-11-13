@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Hardware Agent Skin",
+    "description": "Restyles the Harness UI as a PCB design workbench: PCB brand mark, a brand row reading \"Hardware Dev Workbench\", and a board-green / copper palette applied through theme tokens."
+  }
+}

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice"
+ role="img" aria-label="CircuitNexus light theme PCB trace background">
+  <title>CircuitNexus · Light PCB Background Overlay</title>
+  <desc>Fully editable vector circuit paths, pads, dotted drafting grid and a transparent overlay.</desc>
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="47%" r="72%">
+          <stop offset="0%" stop-color="#FFFDFA"/>
+          <stop offset="59%" stop-color="#FCF9F4"/>
+          <stop offset="100%" stop-color="#FBF7EF"/>
+        </radialGradient>
+    <linearGradient id="copper" x1="0" y1="0" x2="1" y2="1" objectBoundingBox="true">
+          <stop offset="0%" stop-color="#D7BA7D"/>
+          <stop offset="56%" stop-color="#C79A3B"/>
+          <stop offset="100%" stop-color="#E6CE9E"/>
+        </linearGradient>
+    <pattern id="dot-grid" width="25" height="25" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="0.82" fill="#BFA57B" opacity="0.33"/>
+    </pattern>
+    <pattern id="via-lattice" width="180" height="144" patternUnits="userSpaceOnUse">
+      <circle cx="90" cy="72" r="10" fill="#C79A3B" opacity="0.05"/>
+      <circle cx="90" cy="72" r="6.2" fill="none" stroke="#C79A3B" stroke-width="1.2" opacity="0.26"/>
+      <circle cx="90" cy="72" r="2.4" fill="#C79A3B" opacity="0.4"/>
+    </pattern>
+  </defs>
+  
+  <rect width="1440" height="900" fill="url(#dot-grid)"/>
+  <rect width="1440" height="900" fill="url(#via-lattice)"/>
+  <g id="circuit-traces" stroke="url(#copper)" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <g id="main-traces" stroke-width="1.55" opacity="0.60">
+  <path d="M-18 116 H147 Q157 116 164 109 L224 49 Q233 40 245 40 H331 Q340 40 348 32 L382 -2"/>
+  <path d="M-18 136 H166 Q175 136 182 129 L230 81 Q239 72 250 72 H326 L385 13"/>
+  <path d="M1458 52 H1310 Q1298 52 1290 61 L1190 161 Q1182 169 1171 169 H1043"/>
+  <path d="M1458 91 H1329 Q1316 91 1307 100 L1213 194 Q1204 203 1194 203 H1065"/>
+  <path d="M-18 714 H114 Q125 714 133 723 L193 783 Q203 792 216 792 H367"/>
+  <path d="M-18 737 H104 Q118 737 128 747 L207 826 Q217 836 230 836 H476"/>
+  <path d="M1458 777 H1199 Q1188 777 1180 785 L1120 845 Q1112 853 1103 853 H1034"/>
+  <path d="M1458 811 H1198 Q1188 811 1180 819 L1137 862 Q1127 872 1117 872 H1034"/>
+    </g>
+    <g id="secondary-traces" stroke-width="1.1" opacity="0.36">
+  <path d="M-12 92 H118 Q129 92 138 83 L200 21 Q209 12 222 12 H326"/>
+  <path d="M1462 28 H1343 Q1335 28 1327 36 L1173 190 H1075"/>
+  <path d="M-12 693 H131 Q142 693 150 702 L199 751"/>
+  <path d="M1454 793 H1212 L1143 862"/>
+    </g>
+  </g>
+  <g id="pads-and-symbols">
+<circle cx="230" cy="81" r="9" fill="none" stroke="#C79A3B" stroke-width="1.65" opacity="0.82"/>
+        <circle cx="230" cy="81" r="4" fill="#C79A3B" opacity="0.76"/>
+<circle cx="1043" cy="169" r="9" fill="none" stroke="#C79A3B" stroke-width="1.65" opacity="0.82"/>
+        <circle cx="1043" cy="169" r="4" fill="#C79A3B" opacity="0.76"/>
+<circle cx="476" cy="836" r="10" fill="none" stroke="#C79A3B" stroke-width="1.65" opacity="0.82"/>
+        <circle cx="476" cy="836" r="4" fill="#C79A3B" opacity="0.76"/>
+<circle cx="1034" cy="853" r="9" fill="none" stroke="#C79A3B" stroke-width="1.65" opacity="0.82"/>
+        <circle cx="1034" cy="853" r="4" fill="#C79A3B" opacity="0.76"/>
+<g fill="none" stroke="#C99B4A" stroke-width="1.4" opacity="0.69">
+    <path d="M1265 172.5 H1289 M1330 172.5 H1354"/>
+    <rect x="1289" y="164" width="41" height="17" rx="3"/>
+    </g>
+<g fill="none" stroke="#C99B4A" stroke-width="1.4" opacity="0.69">
+    <path d="M1206 844.0 H1230 M1271 844.0 H1295"/>
+    <rect x="1230" y="835" width="41" height="18" rx="3"/>
+    </g>
+<g fill="none" stroke="#C99B4A" stroke-width="1.35" stroke-linecap="round" opacity="0.64">
+      <path d="M258 783 H278 M292 783 H312 M278 770 V796 M292 770 V796" />
+    </g>
+  </g>
+
+  <!-- extension: mid-band routing, vias, passives, length-matched serpentine -->
+  <g id="mid-traces" stroke="url(#copper)" stroke-linecap="round" stroke-linejoin="round" fill="none"
+     stroke-width="1.55" opacity="0.52">
+    <path d="M-20 300 H186 Q202 300 214 312 L276 374 Q288 386 304 386 H430"/>
+    <path d="M1460 268 H1306 Q1290 268 1278 280 L1216 342 Q1204 354 1188 354 H1174"/>
+    <path d="M1162 354 H1080"/>
+    <path d="M420 872 H596"/>
+    <path d="M688 872 H780 L840 812 Q852 800 868 800 H1000"/>
+    <path d="M300 -12 V64 L376 140 Q388 152 404 152 H446"/>
+    <path d="M458 152 H600"/>
+    <path d="M140 400 V520 Q140 536 152 548 L252 648"/>
+    <path d="M1300 420 V520 L1244 576 Q1232 588 1216 588 H1120"/>
+  </g>
+  <g id="mid-secondary-traces" stroke="url(#copper)" stroke-linecap="round" stroke-linejoin="round" fill="none"
+     stroke-width="1.05" opacity="0.32">
+    <path d="M-20 344 H150 L214 408"/>
+    <path d="M1440 316 H1322 L1258 380"/>
+    <path d="M520 912 V836 L592 764"/>
+    <path d="M980 912 V852 L1032 800"/>
+  </g>
+  <g id="mid-vias">
+        <circle cx="430" cy="386" r="11" fill="#C79A3B" opacity="0.05"/>
+        <circle cx="430" cy="386" r="7.5" fill="none" stroke="#C79A3B" stroke-width="1.6" opacity="0.85"/>
+        <circle cx="430" cy="386" r="3.2" fill="#C79A3B" opacity="0.85"/>
+        <circle cx="1080" cy="354" r="11" fill="#C79A3B" opacity="0.05"/>
+        <circle cx="1080" cy="354" r="7.5" fill="none" stroke="#C79A3B" stroke-width="1.6" opacity="0.85"/>
+        <circle cx="1080" cy="354" r="3.2" fill="#C79A3B" opacity="0.85"/>
+        <circle cx="1000" cy="800" r="11" fill="#C79A3B" opacity="0.05"/>
+        <circle cx="1000" cy="800" r="7.5" fill="none" stroke="#C79A3B" stroke-width="1.6" opacity="0.85"/>
+        <circle cx="1000" cy="800" r="3.2" fill="#C79A3B" opacity="0.85"/>
+        <circle cx="600" cy="152" r="11" fill="#C79A3B" opacity="0.05"/>
+        <circle cx="600" cy="152" r="7.5" fill="none" stroke="#C79A3B" stroke-width="1.6" opacity="0.85"/>
+        <circle cx="600" cy="152" r="3.2" fill="#C79A3B" opacity="0.85"/>
+        <circle cx="252" cy="648" r="11" fill="#C79A3B" opacity="0.05"/>
+        <circle cx="252" cy="648" r="7.5" fill="none" stroke="#C79A3B" stroke-width="1.6" opacity="0.85"/>
+        <circle cx="252" cy="648" r="3.2" fill="#C79A3B" opacity="0.85"/>
+        <circle cx="1120" cy="588" r="11" fill="#C79A3B" opacity="0.05"/>
+        <circle cx="1120" cy="588" r="7.5" fill="none" stroke="#C79A3B" stroke-width="1.6" opacity="0.85"/>
+        <circle cx="1120" cy="588" r="3.2" fill="#C79A3B" opacity="0.85"/>
+  </g>
+  <g id="length-matched-serpentine" stroke="url(#copper)" fill="none"
+     stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" opacity="0.52">
+    <path id="serpentine" d="M560 620 H600 L640 660 H680 L720 620 H760 L800 660 H840 L880 620"/>
+  </g>
+  <g id="mid-passives" fill="none" stroke="#C99B4A" stroke-width="1.4"
+     stroke-linejoin="round" stroke-linecap="round" opacity="0.66">
+    <path d="M596 872 H610 M674 872 H688"/>
+    <rect x="610" y="864" width="64" height="16" rx="3"/>
+    <path d="M1162 342 V366 M1174 342 V366"/>
+    <path d="M446 140 V164 M458 140 V164"/>
+  </g>
+</svg>

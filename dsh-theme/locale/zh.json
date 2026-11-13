@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "硬件设计 Agent 外观",
+    "description": "把 Harness 界面换成 PCB 设计工作台的样式：左上角为 PCB 标识与「硬件开发工作台」品牌名，并用板卡绿 / 铜色主题 token 统一整体配色。"
+  }
+}

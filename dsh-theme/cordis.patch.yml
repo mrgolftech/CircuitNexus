@@ -1,0 +1,3 @@
+- insert:
+    - id: hardware-agent-skin
+      name: '@local/hardware-agent-skin'
