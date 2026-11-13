@@ -1,0 +1,93 @@
+/* CircuitNexus · Precision Black & Gold / UI Design Tokens v1.0
+ * 本文件为视觉语义变量；DSH 主题插件需自行适配其公开 Token / registration API。
+ * 切换主题：在根元素设置 data-cnx-theme="dark" 或 "light"。 */
+
+:root, [data-cnx-theme="dark"] {
+  --cnx-canvas: #0D0E10;
+  --cnx-sidebar: #16181D;
+  --cnx-topbar: #111216;
+  --cnx-surface: #1D2025;
+  --cnx-surface-raised: #23262C;
+  --cnx-input: #23262C;
+  --cnx-hover: #2B2D33;
+  --cnx-active: #3A3020;
+  --cnx-border: #3C3D42;
+  --cnx-border-strong: #646065;
+  --cnx-divider: #34353A;
+  --cnx-text-primary: #F2F4F7;
+  --cnx-text-secondary: #9AA0A6;
+  --cnx-text-muted: #858B92;
+  --cnx-text-disabled: #737780;
+  --cnx-placeholder: #A5A7AA;
+  --cnx-brand: #D4AF37;
+  --cnx-brand-hover: #E0BD55;
+  --cnx-brand-pressed: #B78F2E;
+  --cnx-brand-text: #D4AF37;
+  --cnx-on-brand: #221B12;
+  --cnx-enig-metal: #B9975B;
+  --cnx-trace: #3A3124;
+  --cnx-grid: #877051;
+  --cnx-focus: #E8C875;
+  --cnx-selection-bg: #3A3020;
+  --cnx-selection-text: #F2F4F7;
+  --cnx-success: #5BC7A0;
+  --cnx-warning: #E9B765;
+  --cnx-error: #F28B86;
+  --cnx-info: #79A9F5;
+  --cnx-background-trace-opacity: 0.18;
+  --cnx-workspace-trace-opacity: 0.04;
+  --cnx-dot-grid-opacity: 0.045;
+  color-scheme: dark;
+}
+
+[data-cnx-theme="light"] {
+  --cnx-canvas: #FBF7EF;
+  --cnx-sidebar: #F4E9D8;
+  --cnx-topbar: #FBF7EF;
+  --cnx-surface: #FFFCF8;
+  --cnx-surface-raised: #FFFFFF;
+  --cnx-input: #FFFFFF;
+  --cnx-hover: #F7EDD9;
+  --cnx-active: #EFE0C5;
+  --cnx-border: #E4D9C7;
+  --cnx-border-strong: #9B8768;
+  --cnx-divider: #E9DCCC;
+  --cnx-text-primary: #3E2E0B;
+  --cnx-text-secondary: #6F6659;
+  --cnx-text-muted: #756B5C;
+  --cnx-text-disabled: #A29889;
+  --cnx-placeholder: #6F6659;
+  --cnx-brand: #C79A3B;
+  --cnx-brand-hover: #D1A64C;
+  --cnx-brand-pressed: #A87720;
+  --cnx-brand-text: #805C1E;
+  --cnx-on-brand: #221B12;
+  --cnx-enig-metal: #B9975B;
+  --cnx-trace: #E6D6B8;
+  --cnx-grid: #C4A872;
+  --cnx-focus: #805C1E;
+  --cnx-selection-bg: #EFE0C5;
+  --cnx-selection-text: #3E2E0B;
+  --cnx-success: #166B4F;
+  --cnx-warning: #8B5C17;
+  --cnx-error: #AC3333;
+  --cnx-info: #225DA9;
+  --cnx-background-trace-opacity: 0.45;
+  --cnx-workspace-trace-opacity: 0.06;
+  --cnx-dot-grid-opacity: 0.065;
+  color-scheme: light;
+}
+
+/* 按需使用的基础示例：避免强行覆盖既有 DSH DOM 样式 */
+.cnx-canvas { background: var(--cnx-canvas); color: var(--cnx-text-primary); }
+.cnx-sidebar { background: var(--cnx-sidebar); color: var(--cnx-text-primary); }
+.cnx-composer { background: var(--cnx-input); border: 1px solid var(--cnx-border); border-radius: 22px; color: var(--cnx-text-primary); }
+.cnx-composer::placeholder { color: var(--cnx-placeholder); }
+.cnx-primary-button { background: var(--cnx-brand); color: var(--cnx-on-brand); border: 0; }
+.cnx-primary-button:hover { background: var(--cnx-brand-hover); }
+.cnx-primary-button:active { background: var(--cnx-brand-pressed); }
+.cnx-nav-item[aria-current="page"], .cnx-nav-item[aria-selected="true"] { background: var(--cnx-selection-bg); color: var(--cnx-selection-text); }
+.cnx-focusable:focus-visible, .cnx-primary-button:focus-visible { outline: 2px solid var(--cnx-focus); outline-offset: 2px; }
+.cnx-field-critical { border-color: var(--cnx-border-strong); }
+/* 背景纹理建议用独立 SVG 层渲染：欢迎页可见，长会话与代码面板默认弱化/隐藏。 */
+@media (prefers-reduced-motion: reduce) { .cnx-animated-trace { animation: none !important; transition: none !important; } }

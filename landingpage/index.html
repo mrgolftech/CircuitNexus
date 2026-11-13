@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-cnx-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark light">
+<title>CircuitNexus · 电路智枢 ｜ AI 硬件研发工作台</title>
+<meta name="description" content="CircuitNexus（电路智枢）：支持子模块原理图设计与器件选型、设计文档辅助编制、Cadence OrCAD 网表解析、110+ 条要素原理图评审、复杂电路机理分析、PCB 设计指导，以及 AI 驱动的 KiCad EDA 设计开发。">
+<meta name="theme-color" content="#0D0E10" id="metaThemeColor">
+<meta property="og:type" content="website">
+<meta property="og:title" content="CircuitNexus · 电路智枢 ｜ AI 硬件研发工作台">
+<meta property="og:description" content="由定制 Agent 构建，融合自研 OrCAD 网表解析等基础工具、Skill、硬件知识库、MCP 工具与 AI 驱动 KiCad 的硬件研发工作台。">
+<link rel="canonical" href="https://circuit.1616516.xyz/">
+<meta property="og:url" content="https://circuit.1616516.xyz/">
+<meta property="og:image" content="https://circuit.1616516.xyz/assets/exports/website/og-card-dark-1200.png" id="metaOgImage">
+<link rel="icon" type="image/svg+xml" href="assets/brand/app-icons/favicon.svg">
+<link rel="alternate icon" href="assets/exports/favicon/favicon.ico" sizes="any">
+<!-- 设计 Token 是配色的唯一事实来源，页面 CSS 只做派生变量 -->
+<link rel="stylesheet" href="assets/tokens/circuitnexus-theme-tokens.css">
+<script>
+  /* 首帧确定主题，避免切换闪屏 */
+  (function () {
+    var t;
+    try { t = localStorage.getItem('cnx-theme'); } catch (e) {}
+    if (t !== 'dark' && t !== 'light') {
+      t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
+    }
+    document.documentElement.setAttribute('data-cnx-theme', t);
+    var l;
+    try { l = localStorage.getItem('cnx-lang'); } catch (e2) {}
+    if (l !== 'zh' && l !== 'en') { l = 'zh'; } /* 默认中文 */
+    document.documentElement.setAttribute('data-lang', l);
+    document.documentElement.lang = l === 'zh' ? 'zh-CN' : 'en';
+    document.documentElement.classList.add('is-booting');
+  })();
+</script>
+<style>
+/* ============================================================
+   CircuitNexus Landing Page · 单页静态实现（产品能力介绍）
+   配色全部来自 assets/tokens/circuitnexus-theme-tokens.css
+   图标/Logo 全部引用 assets/ 同源资产，未改写一个源文件
+   ============================================================ */
+
+/* --- 1. 页面级派生变量（仅透明度/阴影，色值仍取 Token） --- */
+:root {
+  --page-max: 1200px;
+  --nav-h: 68px;
+  --radius-s: 10px;
+  --radius-m: 14px;
+  --radius-l: 22px;
+  --ease: cubic-bezier(.22, .8, .28, 1);
+  --font-sans: "Segoe UI", "Microsoft YaHei UI", "Microsoft YaHei", -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans CJK SC", "Noto Sans SC", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", monospace;
+}
+:root, [data-cnx-theme="dark"] {
+  --glass: rgba(22, 24, 29, .74);
+  --card-bg: rgba(29, 32, 37, .66);
+  --hairline: rgba(212, 175, 55, .14);
+  --hairline-strong: rgba(212, 175, 55, .42);
+  --glow-1: rgba(212, 175, 55, .13);
+  --glow-2: rgba(183, 143, 46, .07);
+  --shadow-card: 0 24px 60px rgba(0, 0, 0, .38);
+  --shadow-float: 0 20px 50px rgba(0, 0, 0, .5);
+  --gold-grad: linear-gradient(105deg, #F3DC96 0%, #D4AF37 45%, #B78F2E 100%);
+}
+[data-cnx-theme="light"] {
+  --glass: rgba(255, 252, 248, .82);
+  --card-bg: rgba(255, 255, 255, .74);
+  --hairline: rgba(155, 114, 39, .18);
+  --hairline-strong: rgba(128, 92, 30, .42);
+  --glow-1: rgba(199, 154, 59, .14);
+  --glow-2: rgba(199, 154, 59, .06);
+  --shadow-card: 0 20px 48px rgba(82, 62, 24, .12);
+  --shadow-float: 0 18px 44px rgba(82, 62, 24, .16);
+  --gold-grad: linear-gradient(105deg, #8A6416 0%, #A87720 48%, #C79A3B 100%);
+}
+
+/* --- 2. 基础 --- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 18px); }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--cnx-canvas);
+  color: var(--cnx-text-primary);
+  font: 400 16px/1.7 var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  transition: background-color .4s var(--ease), color .4s var(--ease);
+}
+.is-booting *, .is-booting *::before, .is-booting *::after { transition: none !important; animation: none !important; }
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--cnx-focus); outline-offset: 3px; border-radius: 4px; }
+::selection { background: var(--cnx-active); color: var(--cnx-text-primary); }
+
+.container { width: min(100% - 48px, var(--page-max)); margin-inline: auto; }
+.skip-link { position: fixed; top: -60px; left: 16px; z-index: 200; padding: 10px 16px; background: var(--cnx-brand); color: var(--cnx-on-brand); border-radius: 8px; transition: top .2s; }
+.skip-link:focus { top: 12px; }
+
+/* --- 3. 全局背景层（低对比、pointer-events:none） --- */
+.bg-layer { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+.bg-layer .grain {
+  position: absolute; inset: 0;
+  background-image: radial-gradient(var(--cnx-grid) .8px, transparent .8px);
+  background-size: 30px 30px;
+  opacity: var(--cnx-dot-grid-opacity);
+  mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 82%, transparent);
+}
+.bg-layer .aura {
+  position: absolute; inset: -20% -10% auto -10%; height: 90vh;
+  background:
+    radial-gradient(50% 46% at 18% 12%, var(--glow-1), transparent 70%),
+    radial-gradient(42% 40% at 88% 22%, var(--glow-2), transparent 72%);
+  filter: blur(10px);
+}
+.bg-layer .vignette { position: absolute; inset: 0; background: radial-gradient(120% 90% at 50% 0%, transparent 55%, var(--cnx-canvas) 100%); opacity: .55; }
+main, header, footer { position: relative; z-index: 1; }
+
+/* --- 4. 通用组件 --- */
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font: 600 12px/1.4 var(--font-mono); letter-spacing: .16em; text-transform: uppercase;
+  color: var(--cnx-brand-text);
+  padding: 8px 14px; border: 1px solid var(--hairline); border-radius: 999px;
+  background: var(--card-bg);
+}
+.eyebrow .pulse {
+  width: 7px; height: 7px; border-radius: 50%; background: var(--cnx-brand);
+  box-shadow: 0 0 0 0 var(--glow-1); animation: pulse 2.8s infinite;
+}
+.section { padding: 100px 0; }
+.section-head { max-width: 800px; margin-bottom: 48px; }
+.section-head h2 {
+  margin: 20px 0 14px; font-size: clamp(28px, 4vw, 44px); line-height: 1.22;
+  font-weight: 700; letter-spacing: -.02em;
+}
+.section-head p { margin: 0; color: var(--cnx-text-secondary); font-size: clamp(15px, 1.5vw, 17px); }
+.section-index { font: 600 12px var(--font-mono); letter-spacing: .2em; color: var(--cnx-brand-text); }
+.gold-text {
+  background: var(--gold-grad); -webkit-background-clip: text; background-clip: text;
+  color: transparent; -webkit-text-fill-color: transparent;
+}
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  min-height: 44px; padding: 0 22px; border-radius: 10px; font-size: 14px; font-weight: 600;
+  border: 1px solid transparent; transition: transform .25s var(--ease), background-color .25s, border-color .25s, box-shadow .25s;
+  white-space: nowrap;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+.btn-primary {
+  background: var(--cnx-brand); color: var(--cnx-on-brand);
+  box-shadow: 0 10px 28px var(--glow-1);
+}
+.btn-primary:hover { background: var(--cnx-brand-hover); box-shadow: 0 14px 34px var(--glow-1); }
+.btn-ghost { background: transparent; border-color: var(--cnx-border); color: var(--cnx-text-primary); }
+.btn-ghost:hover { border-color: var(--hairline-strong); background: var(--cnx-hover); }
+.btn svg { width: 16px; height: 16px; flex: none; }
+
+/* 滚动入场 */
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s var(--ease), transform .7s var(--ease); transition-delay: var(--d, 0ms); }
+.reveal.in { opacity: 1; transform: none; }
+
+/* --- 5. 导航 --- */
+.site-header {
+  position: sticky; top: 0; z-index: 60; height: var(--nav-h);
+  background: var(--glass); backdrop-filter: blur(16px) saturate(1.3); -webkit-backdrop-filter: blur(16px) saturate(1.3);
+  border-bottom: 1px solid var(--cnx-divider);
+}
+.nav-inner { height: 100%; display: flex; align-items: center; gap: 32px; }
+.brand { display: flex; align-items: center; flex: none; }
+.brand img { width: auto; height: 40px; }
+.nav-links { display: flex; align-items: center; gap: 26px; margin-left: 18px; }
+.nav-links a {
+  position: relative; font-size: 14px; color: var(--cnx-text-secondary); padding: 6px 0;
+  transition: color .2s;
+}
+.nav-links a::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
+  background: var(--cnx-brand); transform: scaleX(0); transform-origin: left; transition: transform .3s var(--ease);
+}
+.nav-links a:hover, .nav-links a[aria-current="true"] { color: var(--cnx-text-primary); }
+.nav-links a:hover::after { transform: scaleX(1); }
+.nav-actions { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+.icon-btn {
+  width: 42px; height: 42px; display: grid; place-items: center;
+  border: 1px solid var(--cnx-border); border-radius: 10px; background: transparent;
+  color: var(--cnx-text-primary);
+  /* 不使用 transform：hover/点击后按钮必须保持水平端正 */
+  transition: background-color .25s, border-color .25s, color .25s;
+}
+.icon-btn:hover { background: var(--cnx-hover); border-color: var(--hairline-strong); color: var(--cnx-brand-text); }
+.icon-btn svg { width: 19px; height: 19px; }
+.lang-btn { font: 700 12px/1 var(--font-mono); letter-spacing: .02em; }
+.lang-btn span { color: var(--cnx-brand-text); }
+[data-cnx-theme="dark"] .icon-sun { display: none; }
+[data-cnx-theme="light"] .icon-moon { display: none; }
+.hamburger { display: none; }
+.hamburger span { display: block; width: 18px; height: 1.5px; margin: 4px 0; background: currentColor; transition: transform .3s, opacity .3s; }
+.mobile-only { display: none; }
+
+/* --- 6. Hero --- */
+.hero { position: relative; padding: 84px 0 0; overflow: hidden; }
+.hero-pcb {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  opacity: var(--cnx-background-trace-opacity); pointer-events: none; user-select: none;
+}
+[data-cnx-theme="dark"] .hero-pcb.light-src { display: none; }
+[data-cnx-theme="light"] .hero-pcb.dark-src { display: none; }
+.hero-grid {
+  position: relative; display: grid; grid-template-columns: 1.02fr .98fr; gap: 56px; align-items: center;
+  min-height: min(640px, 78vh);
+}
+.hero-copy { padding-bottom: 30px; }
+.hero h1 {
+  margin: 26px 0 22px; font-size: clamp(36px, 5.2vw, 66px); line-height: 1.14;
+  font-weight: 700; letter-spacing: -.035em;
+}
+.hero h1 .line { display: block; }
+/* 英文标题较长：仅桌面英文模式收紧字号，避免折成 4 行 */
+@media (min-width: 861px) {
+  [data-lang="en"] .hero h1 { font-size: clamp(32px, 4.1vw, 54px); line-height: 1.16; }
+}
+.hero-sub { margin: 0; max-width: 540px; font-size: clamp(15px, 1.6vw, 18px); color: var(--cnx-text-secondary); line-height: 1.85; }
+.hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+.hero-cta .btn { min-height: 50px; padding-inline: 26px; }
+.hero-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
+.hero-tags span {
+  display: inline-flex; align-items: center; gap: 8px;
+  font: 600 11.5px/1 var(--font-mono); letter-spacing: .04em;
+  padding: 9px 12px; border-radius: 7px;
+  border: 1px solid var(--cnx-border); color: var(--cnx-text-secondary);
+  background: var(--card-bg);
+}
+.hero-tags span::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--cnx-brand); }
+
+/* Hero 视觉框：图片严格保持 1672:941 原始比例，不做 3D 透视倾斜 */
+.hero-visual { position: relative; }
+.visual-frame {
+  position: relative; padding: 6px; border-radius: 16px;
+  background: var(--card-bg);
+  border: 1px solid var(--cnx-border);
+  box-shadow: 0 10px 28px var(--glow-2);
+}
+.visual-frame img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1672 / 941;
+  object-fit: contain;
+  border-radius: 11px;
+}
+
+/* Hero 底部能力数字条 */
+.hero-stats {
+  position: relative; margin-top: 70px; padding: 26px 0 30px;
+  border-top: 1px solid var(--cnx-divider);
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+}
+.stat { display: flex; flex-direction: column; gap: 4px; }
+.stat b { font: 700 clamp(28px, 3.4vw, 42px)/1 var(--font-mono); letter-spacing: -.04em; color: var(--cnx-brand-text); }
+.stat span { font-size: 13px; color: var(--cnx-text-secondary); }
+.stat-note {
+  grid-column: 1 / -1; margin-top: 6px; padding-top: 16px; border-top: 1px dashed var(--cnx-divider);
+  font-size: 12.5px; color: var(--cnx-text-muted);
+}
+
+/* --- 7. 产品能力卡片 --- */
+.cap-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.cap-card {
+  position: relative; overflow: hidden; padding: 26px 22px 22px;
+  border: 1px solid var(--cnx-border); border-radius: var(--radius-m);
+  background: var(--card-bg); transition: transform .35s var(--ease), border-color .35s, box-shadow .35s;
+}
+.cap-card::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0;
+  background: radial-gradient(220px 180px at var(--mx, 50%) var(--my, 50%), var(--glow-1), transparent 70%);
+  transition: opacity .35s;
+}
+.cap-card:hover { transform: translateY(-6px); border-color: var(--hairline-strong); box-shadow: var(--shadow-card); }
+.cap-card:hover::after { opacity: 1; }
+.cap-card:hover .cap-icon { transform: scale(1.08); }
+.cap-icon {
+  width: 42px; height: 42px; flex: none;
+  background-color: var(--cnx-brand-text);
+  -webkit-mask-image: var(--icon); mask-image: var(--icon);
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-position: center; mask-position: center;
+  -webkit-mask-size: contain; mask-size: contain;
+  transition: transform .35s var(--ease);
+}
+.cap-card h3 { margin: 22px 0 10px; font-size: 17px; font-weight: 650; letter-spacing: -.01em; }
+.cap-card p { margin: 0 0 20px; font-size: 13.5px; line-height: 1.75; color: var(--cnx-text-secondary); min-height: 78px; }
+.cap-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.cap-foot .num { font: 600 11px var(--font-mono); color: var(--cnx-text-muted); letter-spacing: .08em; }
+.cap-foot .kw { font: 600 10.5px var(--font-mono); letter-spacing: .06em; color: var(--cnx-brand-text); padding: 5px 8px; border: 1px solid var(--hairline); border-radius: 6px; }
+
+/* --- 8. 技术底座 --- */
+.stack-section { border-top: 1px solid var(--cnx-divider); border-bottom: 1px solid var(--cnx-divider); background: linear-gradient(180deg, transparent, var(--glow-2), transparent); }
+/* 技术架构分层图 */
+.arch-diagram {
+  position: relative; margin: 0 0 42px; padding: 26px 28px 22px;
+  border: 1px solid var(--cnx-border); border-radius: var(--radius-l);
+  background: radial-gradient(70% 120% at 0% 0%, var(--glow-2), transparent 60%), var(--card-bg);
+  box-shadow: inset 0 1px 0 var(--hairline);
+  overflow: hidden;
+}
+.arch-diagram::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .7;
+  background-image:
+    linear-gradient(45deg, transparent 49.4%, var(--cnx-trace) 49.6%, var(--cnx-trace) 50.4%, transparent 50.6%),
+    linear-gradient(-45deg, transparent 49.4%, var(--cnx-trace) 49.6%, var(--cnx-trace) 50.4%, transparent 50.6%);
+  background-size: 120px 120px;
+  mask-image: linear-gradient(90deg, #000, transparent 42%);
+}
+[data-cnx-theme="light"] .arch-diagram::before { opacity: .2; }
+.arch-head, .arch-foot {
+  position: relative; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  font: 600 11px var(--font-mono); letter-spacing: .14em; color: var(--cnx-brand-text);
+}
+.arch-foot { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--cnx-divider); color: var(--cnx-text-muted); letter-spacing: .06em; }
+.arch-foot span:nth-child(2) { letter-spacing: 0; }
+.arch-stack { position: relative; display: grid; gap: 9px; margin-top: 20px; }
+.arch-stack::before {
+  content: ""; position: absolute; left: 26px; top: 6px; bottom: 6px; width: 2px;
+  background: linear-gradient(180deg, transparent, var(--cnx-brand) 8%, var(--cnx-brand) 92%, transparent);
+  opacity: 1; box-shadow: 0 0 16px var(--glow-1);
+  transform-origin: top; animation: growLine 1.1s var(--ease) both;
+}
+.arch-stack::after {
+  content: ""; position: absolute; left: 22.5px; top: 6px; width: 9px; height: 9px; border-radius: 50%;
+  background: var(--cnx-brand);
+  box-shadow: 0 0 14px 3px var(--glow-1), 0 0 5px var(--cnx-brand);
+  animation: flowDot 1.8s var(--ease) .25s 1 both; pointer-events: none;
+}
+@keyframes flowDot { 0% { top: 6px; opacity: 0; } 15% { opacity: 1; } 100% { top: calc(100% - 15px); opacity: 0; } }
+.arch-layer {
+  position: relative; display: grid; grid-template-columns: 58px 24px 1fr auto; align-items: center; gap: 14px;
+  width: var(--w, 100%);
+  padding: 14px 18px 14px 46px; border: 1px solid var(--cnx-border); border-radius: 10px;
+  background: linear-gradient(90deg, var(--glow-2), transparent 58%), var(--card-bg);
+  box-shadow: inset 0 1px 0 var(--hairline);
+  transition: transform .35s var(--ease), border-color .35s, box-shadow .35s;
+}
+.arch-layer::after {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  background: linear-gradient(180deg, var(--cnx-brand), transparent 85%);
+  border-radius: 10px 0 0 10px; opacity: var(--edge, .6);
+}
+.arch-layer::before {
+  content: ""; position: absolute; left: 20.5px; top: 50%; transform: translateY(-50%); width: 12px; height: 12px; border-radius: 50%;
+  background: var(--cnx-canvas); border: 2px solid var(--cnx-brand);
+  box-shadow: 0 0 0 4px var(--cnx-canvas), 0 0 16px 2px var(--glow-1); z-index: 2;
+}
+.arch-layer:hover { transform: translateX(8px); border-color: var(--hairline-strong); box-shadow: 0 0 34px var(--glow-1), inset 0 0 0 1px var(--hairline); }
+.arch-icon {
+  width: 20px; height: 20px; opacity: .9;
+  background-color: var(--cnx-brand-text);
+  -webkit-mask-image: var(--icon); mask-image: var(--icon);
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-position: center; mask-position: center;
+  -webkit-mask-size: contain; mask-size: contain;
+}
+.arch-num { font: 700 15px var(--font-mono); color: var(--cnx-brand-text); letter-spacing: .06em; }
+.arch-name { font-size: 15px; font-weight: 650; letter-spacing: -.01em; }
+.arch-tag {
+  font: 600 10.5px var(--font-mono); letter-spacing: .08em; color: var(--cnx-text-muted);
+  border: 1px solid var(--cnx-border); border-radius: 6px; padding: 5px 9px; white-space: nowrap;
+}
+@keyframes growLine { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+
+.stack-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.stack-item {
+  position: relative; padding: 24px 18px 22px; border: 1px solid var(--cnx-border);
+  border-radius: var(--radius-m); background: var(--card-bg);
+  transition: border-color .3s, transform .3s var(--ease);
+}
+.stack-item:hover { transform: translateY(-4px); border-color: var(--hairline-strong); }
+.stack-item::before {
+  content: ""; display: block; width: 28px; height: 2px; margin-bottom: 18px;
+  background: var(--cnx-brand); border-radius: 2px;
+}
+.stack-item .s-num { font: 600 11px var(--font-mono); color: var(--cnx-brand-text); letter-spacing: .12em; }
+.stack-item h3 { margin: 12px 0 10px; font-size: 15.5px; font-weight: 650; }
+.stack-item p { margin: 0; font-size: 12.8px; line-height: 1.8; color: var(--cnx-text-secondary); }
+.stack-note { margin: 26px 0 0; font-size: 12.5px; color: var(--cnx-text-muted); }
+
+/* --- 9. 页脚 --- */
+.site-footer { padding: 60px 0 34px; border-top: 1px solid var(--cnx-divider); margin-top: 90px; }
+.footer-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 40px; }
+.footer-brand img { height: 32px; width: auto; }
+.footer-brand p { margin: 16px 0 0; max-width: 420px; font-size: 13px; line-height: 1.8; color: var(--cnx-text-secondary); }
+.footer-col h4 { margin: 0 0 14px; font-size: 13px; font-weight: 650; }
+.footer-col a { display: block; padding: 5px 0; font-size: 13px; color: var(--cnx-text-secondary); transition: color .2s; }
+.footer-col a:hover { color: var(--cnx-brand-text); }
+.footer-bottom {
+  margin-top: 44px; padding-top: 22px; border-top: 1px solid var(--cnx-divider);
+  display: flex; flex-wrap: wrap; gap: 10px 24px; justify-content: space-between;
+  font-size: 12px; color: var(--cnx-text-muted);
+}
+
+/* 主题切换扫光（克制的一次性过渡） */
+.theme-wipe::after {
+  content: ""; position: fixed; inset: 0; z-index: 999; pointer-events: none;
+  background: linear-gradient(115deg, transparent 30%, var(--glow-1) 50%, transparent 70%);
+  transform: translateX(-120%); animation: wipe .65s var(--ease) forwards;
+}
+
+/* --- 10. 动画 --- */
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 var(--glow-1); } 60% { box-shadow: 0 0 0 10px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@keyframes wipe { to { transform: translateX(120%); } }
+@keyframes rise { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+.hero .eyebrow, .hero h1, .hero-sub, .hero-cta, .hero-tags, .hero-visual { animation: rise .8s var(--ease) both; }
+.hero h1 { animation-delay: .1s; }
+.hero-sub { animation-delay: .2s; }
+.hero-cta { animation-delay: .3s; }
+.hero-tags { animation-delay: .4s; }
+.hero-visual { animation-delay: .22s; }
+
+/* --- 11. 响应式 --- */
+@media (max-width: 1080px) {
+  .cap-grid { grid-template-columns: repeat(2, 1fr); }
+  .stack-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero-grid { gap: 32px; }
+}
+@media (max-width: 860px) {
+  :root { --nav-h: 62px; }
+  .container { width: min(100% - 36px, var(--page-max)); }
+  .section { padding: 72px 0; }
+  .nav-links { display: none; }
+  .hamburger { display: grid; place-items: center; width: 42px; height: 42px; background: transparent; border: 1px solid var(--cnx-border); border-radius: 10px; color: var(--cnx-text-primary); }
+  .nav-inner { gap: 14px; }
+  .nav-actions { gap: 8px; }
+  .site-header.open .nav-links {
+    display: flex; position: absolute; top: var(--nav-h); left: 0; right: 0;
+    flex-direction: column; align-items: stretch; gap: 0; margin: 0; padding: 10px 18px 18px;
+    background: var(--glass); border-bottom: 1px solid var(--cnx-divider);
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  }
+  .site-header.open .nav-links a { padding: 12px 4px; border-bottom: 1px solid var(--cnx-divider); font-size: 15px; }
+  .site-header.open .nav-links .mobile-only { display: block; }
+  .site-header.open .hamburger span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+  .site-header.open .hamburger span:nth-child(2) { opacity: 0; }
+  .site-header.open .hamburger span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+  .hero { padding-top: 56px; }
+  .hero-grid { grid-template-columns: 1fr; min-height: 0; gap: 46px; }
+  .hero-copy { padding-bottom: 0; }
+  .hero-visual { max-width: 620px; margin-inline: auto; width: 100%; }
+  .float-card.a { right: -8px; }
+  .float-card.b { left: -8px; }
+  .hero-stats { grid-template-columns: repeat(2, 1fr); margin-top: 54px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
+}
+@media (max-width: 560px) {
+  .container { width: min(100% - 28px, var(--page-max)); }
+  .section { padding: 60px 0; }
+  .section-head { margin-bottom: 32px; }
+  .hero h1 { font-size: clamp(31px, 9vw, 42px); }
+  .hero-cta .btn { flex: 1 1 100%; }
+  .cap-grid, .stack-grid { grid-template-columns: 1fr; }
+  .arch-diagram { padding: 18px 14px; }
+  .arch-head, .arch-foot { font-size: 9.5px; letter-spacing: .08em; }
+  .arch-foot span:nth-child(2) { display: none; }
+  .arch-stack::before { left: 21px; }
+  .arch-layer { grid-template-columns: 44px 1fr; gap: 8px; padding: 12px 12px 12px 40px; width: 100%; }
+  .arch-icon { display: none; }
+  .arch-stack::after { left: 16.5px; }
+  .arch-layer::before { left: 15px; }
+  .arch-name { font-size: 13px; }
+  .arch-tag { display: none; }
+  .cap-card p { min-height: 0; }
+  .hero-stats { gap: 16px; }
+  .stat b { font-size: 30px; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .float-card { display: none; }
+  .site-footer { margin-top: 60px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
+  .reveal { opacity: 1; transform: none; }
+}
+@media print { .bg-layer, .site-header, .float-card, .theme-wipe { display: none; } body { background: #fff; color: #000; } }
+</style>
+<noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
+</head>
+<body>
+<a class="skip-link" href="#main" data-i18n="skip">跳到主要内容</a>
+
+<div class="bg-layer" aria-hidden="true">
+  <div class="aura"></div>
+  <div class="grain"></div>
+  <div class="vignette"></div>
+</div>
+
+<!-- ================= 导航 ================= -->
+<header class="site-header" id="siteHeader">
+  <div class="container nav-inner">
+    <a class="brand" href="#top" aria-label="CircuitNexus 电路智枢 首页">
+      <img id="brandLogo" src="assets/brand/logo/circuitnexus-logo-en-dark.svg" alt="CircuitNexus" width="150" height="40">
+    </a>
+    <div class="nav-actions">
+      <button class="icon-btn lang-btn" id="langToggle" type="button" aria-label="Switch to English" aria-pressed="false" title="切换语言 / Switch language"><span id="langLabel">EN</span></button>
+      <button class="icon-btn" id="themeToggle" type="button" aria-label="切换深浅主题" aria-pressed="false" title="切换深浅主题">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <!-- ================= Hero ================= -->
+  <section class="hero" id="top">
+    <img class="hero-pcb dark-src" src="assets/themes/pcb/circuitnexus-pcb-dark-welcome.svg" alt="" aria-hidden="true">
+    <img class="hero-pcb light-src" src="assets/themes/pcb/circuitnexus-pcb-light-welcome.svg" alt="" aria-hidden="true">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <h1>
+            <span class="line" data-i18n="h1a">让硬件研发真正进入</span>
+            <span class="line" data-i18n-html="h1b"><em class="gold-text" style="font-style:normal">AI Agent</em> 时代</span>
+          </h1>
+          <p class="hero-sub" data-i18n="heroSub">CircuitNexus（电路智枢）把原理图设计、网表解析、110+ 条要素的原理图评审、复杂电路机理分析与 PCB 设计指导，汇入由定制 Agent、Skill、硬件知识库与 MCP 工具驱动的同一工作台。</p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#capabilities"><span data-i18n="ctaPrimary">查看核心能力</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a class="btn btn-ghost" href="#stack" data-i18n="ctaSecondary">了解技术底座</a>
+          </div>
+          <div class="hero-tags">
+            <span data-i18n="tag1">AI 驱动 EDA 设计</span>
+            <span data-i18n="tag2">110+ 评审要素</span>
+            <span data-i18n="tag3">OrCAD / KiCad 工具链</span>
+          </div>
+        </div>
+        <div class="hero-visual" id="heroVisual">
+          <div class="visual-frame" id="visualFrame">
+            <img id="heroProto" src="assets/ui/prototypes/theme-split-diagonal.png" width="1672" height="941" alt="CircuitNexus 双主题工作台产品界面预览" decoding="async">
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-stats" aria-label="产品能力概览">
+        <div class="stat"><b class="counter" data-target="110" data-suffix="+">110+</b><span data-i18n="stat1">条内置原理图评审要素</span></div>
+        <div class="stat"><b class="counter" data-target="8">8</b><span data-i18n="stat2">类硬件工程能力</span></div>
+        <div class="stat"><b class="counter" data-target="2">2</b><span data-i18n="stat3">大 EDA 工具链 · OrCAD / KiCad</span></div>
+        <div class="stat"><b class="counter" data-target="6">6</b><span data-i18n="stat4">层能力底座 · Agent / Skill / 知识库 / 基础工具 / MCP / EDA</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 核心能力 ================= -->
+  <section class="section" id="capabilities">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-index">01 / CAPABILITIES</span>
+        <h2 data-i18n-html="capTitle">覆盖硬件设计全链路的<span class="gold-text">产品能力</span></h2>
+        <p data-i18n="capDesc">从需求与数据手册出发，到原理图、网表、评审、机理分析与 PCB 指导，再到 AI 驱动的 EDA 设计开发，由定制 Agent 统一编排并交付可复核的工程结果。</p>
+      </div>
+      <div class="cap-grid">
+        <article class="cap-card reveal" style="--d:0ms;--icon:url('assets/brand/website/feature-icons/schematic-design.svg')">
+          <div class="cap-icon" aria-hidden="true"></div>
+          <h3 data-i18n="cap1h">子模块原理图设计</h3>
+          <p data-i18n="cap1p">基于设计需求、数据手册与参考资料，完成子模块级原理图设计，并同步给出器件选型与参数依据。</p>
+          <div class="cap-foot"><span class="kw">SCHEMATIC</span><span class="num">01</span></div>
+        </article>
+        <article class="cap-card reveal" style="--d:60ms;--icon:url('assets/brand/website/feature-icons/knowledge-base.svg')">
+          <div class="cap-icon" aria-hidden="true"></div>
+          <h3 data-i18n="cap2h">器件选型与评估</h3>
+          <p data-i18n="cap2p">结合硬件知识库，对候选器件逐项比对引脚、电压、时序与封装，输出可追溯的选型与替换评估。</p>
+          <div class="cap-foot"><span class="kw">COMPONENT</span><span class="num">02</span></div>
+        </article>
+        <article class="cap-card reveal" style="--d:120ms;--icon:url('assets/brand/website/feature-icons/engineering-report.svg')">
+          <div class="cap-icon" aria-hidden="true"></div>
+          <h3 data-i18n="cap3h">设计文档辅助编制</h3>
+          <p data-i18n="cap3p">辅助编制设计说明、BOM、检查记录与工程报告，把过程数据与规则校核结果整理为可交付文档。</p>
+          <div class="cap-foot"><span class="kw">DOCUMENT</span><span class="num">03</span></div>
+        </article>
+        <article class="cap-card reveal" style="--d:180ms;--icon:url('assets/brand/website/feature-icons/netlist-analysis.svg')">
+          <div class="cap-icon" aria-hidden="true"></div>
+          <h3 data-i18n="cap4h">Cadence OrCAD 网表解析</h3>
+          <p data-i18n="cap4p">解析 Cadence OrCAD 原理图网表，还原器件、引脚与网络连接拓扑，为分析与评审提供结构化输入。</p>
+          <div class="cap-foot"><span class="kw">NETLIST</span><span class="num">04</span></div>
+        </article>
+        <article class="cap-card reveal" style="--d:0ms;--icon:url('assets/brand/website/feature-icons/circuit-review.svg')">
+          <div class="cap-icon" aria-hidden="true"></div>
+          <h3 data-i18n="cap5h">110+ 条要素原理图评审</h3>
+          <p data-i18n="cap5p">依据内置的 110+ 条原理图评审要素逐项检查，输出风险项、证据与整改建议，结果可复核、可追溯。</p>
+          <div class="cap-foot"><span class="kw">REVIEW</span><span class="num">05</span></div>
+        </article>
+        <article class="cap-card reveal" style="--d:60ms;--icon:url('assets/brand/website/feature-icons/power-tree.svg')">
+          <div class="cap-icon" aria-hidden="true"></div>
+          <h3 data-i18n="cap6h">复杂电路机理分析</h3>
+          <p data-i18n="cap6p">对复杂电路做快速辅助理解，梳理模块链路、信号流向与电源关系，解释工作原理与设计机理。</p>
+          <div class="cap-foot"><span class="kw">ANALYSIS</span><span class="num">06</span></div>
+        </article>
+        <article class="cap-card reveal" style="--d:120ms;--icon:url('assets/brand/website/feature-icons/pcb-si.svg')">
+          <div class="cap-icon" aria-hidden="true"></div>
+          <h3 data-i18n="cap7h">PCB 设计建议与指导</h3>
+          <p data-i18n="cap7p">面向布局布线、叠层与高速接口给出 PCB 设计建议和指导，覆盖 SI / PI / EMC 等工程关注点。</p>
+          <div class="cap-foot"><span class="kw">PCB / SI</span><span class="num">07</span></div>
+        </article>
+        <article class="cap-card reveal" style="--d:180ms;--icon:url('assets/brand/website/feature-icons/eda-integration.svg')">
+          <div class="cap-icon" aria-hidden="true"></div>
+          <h3 data-i18n="cap8h">AI 驱动 KiCad EDA 开发</h3>
+          <p data-i18n="cap8p">支持 AI 驱动的 KiCad 等硬件设计 EDA 的设计开发，通过 Skill 与 MCP 工具把设计意图接入工具链。</p>
+          <div class="cap-foot"><span class="kw">EDA</span><span class="num">08</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 技术底座 ================= -->
+  <section class="section stack-section" id="stack">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-index">02 / FOUNDATION</span>
+        <h2 data-i18n-html="stackTitle">由定制 Agent 与 <span class="gold-text">自研工具链</span> 构建</h2>
+        <p data-i18n="stackDesc">Skill、硬件知识库、MCP 工具与 EDA 能力保持模块化独立，Agent 负责理解、规划、调度与复查，确定性检查交给程序与工具执行。</p>
+      </div>
+      <div class="arch-diagram" aria-label="CircuitNexus 技术架构分层图" data-i18n-aria="archLabel">
+        <div class="arch-head"><span>CIRCUITNEXUS · TECH STACK</span><span>L01 → L06</span></div>
+        <div class="arch-stack">
+          <div class="arch-layer reveal" style="--d:0ms;--w:94%;--edge:.38"><span class="arch-num">L01</span><span class="arch-icon" style="--icon:url('assets/brand/website/feature-icons/netlist-analysis.svg')" aria-hidden="true"></span><span class="arch-name" data-i18n="a1name">自研 OrCAD 网表解析等基础工具</span><span class="arch-tag">DATA / PARSER</span></div>
+          <div class="arch-layer reveal" style="--d:70ms;--w:95.2%;--edge:.48"><span class="arch-num">L02</span><span class="arch-icon" style="--icon:url('assets/brand/website/feature-icons/knowledge-base.svg')" aria-hidden="true"></span><span class="arch-name" data-i18n="a2name">硬件知识库</span><span class="arch-tag">KNOWLEDGE</span></div>
+          <div class="arch-layer reveal" style="--d:140ms;--w:96.4%;--edge:.58"><span class="arch-num">L03</span><span class="arch-icon" style="--icon:url('assets/brand/website/feature-icons/eda-integration.svg')" aria-hidden="true"></span><span class="arch-name" data-i18n="a3name">MCP 工具</span><span class="arch-tag">TOOLING</span></div>
+          <div class="arch-layer reveal" style="--d:210ms;--w:97.6%;--edge:.68"><span class="arch-num">L04</span><span class="arch-icon" style="--icon:url('assets/brand/website/feature-icons/schematic-design.svg')" aria-hidden="true"></span><span class="arch-name" data-i18n="a4name">Skill 工程流程</span><span class="arch-tag">SKILL</span></div>
+          <div class="arch-layer reveal" style="--d:280ms;--w:98.8%;--edge:.78"><span class="arch-num">L05</span><span class="arch-icon" style="--icon:url('assets/brand/website/feature-icons/circuit-review.svg')" aria-hidden="true"></span><span class="arch-name" data-i18n="a5name">定制 Agent</span><span class="arch-tag">ORCHESTRATION</span></div>
+          <div class="arch-layer reveal" style="--d:350ms;--w:100%;--edge:.9"><span class="arch-num">L06</span><span class="arch-icon" style="--icon:url('assets/brand/website/feature-icons/pcb-si.svg')" aria-hidden="true"></span><span class="arch-name" data-i18n="a6name">AI 驱动 KiCad EDA</span><span class="arch-tag">DESIGN / EDA</span></div>
+        </div>
+        <div class="arch-foot"><span>ENGINEERING DATA</span><span data-i18n="archFoot">逐层构建 · 自数据基础到 AI 设计应用</span><span>AI DESIGN</span></div>
+      </div>
+      <div class="stack-grid">
+        <div class="stack-item reveal" style="--d:0ms"><span class="s-num">L01</span><h3 data-i18n="a1name">自研 OrCAD 网表解析等基础工具</h3><p data-i18n="s1p">自研 OrCAD 原理图网表解析器与规则引擎，把网表、器件、引脚与网络连接解析为结构化数据，是上层能力的确定性输入。</p></div>
+        <div class="stack-item reveal" style="--d:70ms"><span class="s-num">L02</span><h3 data-i18n="a2name">硬件知识库</h3><p data-i18n="s2p">器件手册、设计规范、评审要素与工程案例统一索引，为每条结论提供证据来源。</p></div>
+        <div class="stack-item reveal" style="--d:140ms"><span class="s-num">L03</span><h3 data-i18n="a3name">MCP 工具</h3><p data-i18n="s3p">以标准接口接入 EDA 与规则程序，连通性、参数与规则校验由工具确定性执行。</p></div>
+        <div class="stack-item reveal" style="--d:210ms"><span class="s-num">L04</span><h3 data-i18n="a4name">Skill 工程流程</h3><p data-i18n="s4p">把原理图设计、网表解析、评审等硬件任务沉淀为可维护、可复用的工程方法与脚本。</p></div>
+        <div class="stack-item reveal" style="--d:280ms"><span class="s-num">L05</span><h3 data-i18n="a5name">定制 Agent</h3><p data-i18n="s5p">由定制 Agent 统一编排，负责任务理解、规划、工具调度与结果复查，是工作台的能力中枢。</p></div>
+        <div class="stack-item reveal" style="--d:350ms"><span class="s-num">L06</span><h3 data-i18n="a6name">AI 驱动 KiCad EDA</h3><p data-i18n="s6p">支持 AI 驱动的 KiCad 等硬件设计 EDA 的设计开发，让 AI 参与真实设计流程而非停留在问答。</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ================= 页脚 ================= -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img id="footerLogo" src="assets/brand/logo/circuitnexus-logo-en-dark.svg" alt="CircuitNexus" width="150" height="40">
+        <p data-i18n="footerTagline">AI 硬件研发工作台 · AI Hardware Engineering Workspace</p>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footerCol">产品</h4>
+        <a href="#capabilities" data-i18n="fCap">核心能力</a><a href="#stack" data-i18n="fStack">技术底座</a><a href="#top" data-i18n="fTop">返回顶部</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year">2026</span> CircuitNexus · 电路智枢 · Copyright 2026 David Golf. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  var root = document.documentElement;
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- 中英切换（默认中文，中文文案直接取自 DOM 原文） ---------- */
+  var langBtn = document.getElementById('langToggle');
+  var langLabel = document.getElementById('langLabel');
+  var EN = {
+    skip: 'Skip to main content',
+    h1a: 'Bring hardware engineering into the',
+    h1b: '<em class="gold-text" style="font-style:normal">AI Agent</em> era',
+    heroSub: 'CircuitNexus unifies schematic design, netlist parsing, 110+ schematic review checks, complex-circuit reasoning and PCB design guidance in one workspace powered by a custom Agent, Skills, a hardware knowledge base and MCP tools.',
+    ctaPrimary: 'Explore capabilities',
+    ctaSecondary: 'See the architecture',
+    tag1: 'AI-driven EDA design',
+    tag2: '110+ review checks',
+    tag3: 'OrCAD / KiCad toolchain',
+    stat1: 'built-in schematic review checks',
+    stat2: 'hardware engineering capabilities',
+    stat3: 'EDA toolchains · OrCAD / KiCad',
+    stat4: 'stack layers · Agent / Skill / KB / core tools / MCP / EDA',
+    capTitle: 'End-to-end <span class="gold-text">capabilities</span> for hardware design',
+    capDesc: 'From requirements and datasheets to schematics, netlists, review, circuit reasoning and PCB guidance — orchestrated by a custom Agent into verifiable engineering output.',
+    cap1h: 'Sub-module schematic design',
+    cap1p: 'Design sub-module schematics from requirements, datasheets and reference material, with component selection and parameter rationale.',
+    cap2h: 'Component selection & evaluation',
+    cap2p: 'Compare candidate parts pin-by-pin for voltage, timing and package using the hardware knowledge base, with traceable selection and substitution reports.',
+    cap3h: 'Design documentation',
+    cap3p: 'Draft design notes, BOMs, check records and engineering reports, turning process data and rule checks into deliverable documents.',
+    cap4h: 'Cadence OrCAD netlist parsing',
+    cap4p: 'Parse Cadence OrCAD schematic netlists into components, pins and connectivity topology as structured input for analysis and review.',
+    cap5h: 'Schematic review with 110+ checks',
+    cap5p: 'Run 110+ built-in schematic review checks, producing risks, evidence and remediation advice that are reproducible and traceable.',
+    cap6h: 'Complex circuit reasoning',
+    cap6p: 'Quickly understand complex circuits by mapping block chains, signal flow and power relationships, explaining operating principles and design intent.',
+    cap7h: 'PCB design guidance',
+    cap7p: 'Actionable PCB guidance for placement, routing, stackup and high-speed interfaces, covering SI / PI / EMC concerns.',
+    cap8h: 'AI-driven KiCad EDA development',
+    cap8p: 'Enable AI-driven design in KiCad and other EDA tools, connecting design intent to the toolchain through Skills and MCP.',
+    stackTitle: 'Built on a custom Agent and a <span class="gold-text">proprietary toolchain</span>',
+    stackDesc: 'Skills, the hardware knowledge base, MCP tools and EDA capabilities stay modular; the Agent plans, dispatches and reviews while deterministic checks run in tools.',
+    archFoot: 'Layer by layer, from engineering data to AI-driven design',
+    a1name: 'Proprietary OrCAD netlist parser & core tools',
+    a2name: 'Hardware knowledge base',
+    a3name: 'MCP tools',
+    a4name: 'Skill workflows',
+    a5name: 'Custom Agent',
+    a6name: 'AI-driven KiCad EDA',
+    s1p: 'A proprietary OrCAD schematic netlist parser and rule engine convert netlists, components, pins and connectivity into structured data — the deterministic input for every layer above.',
+    s2p: 'A unified index of datasheets, design rules, review checks and engineering cases that backs every conclusion with evidence.',
+    s3p: 'Standard interfaces to EDA and rule engines; connectivity, parameter and rule checks are executed deterministically.',
+    s4p: 'Hardware tasks such as schematic design, netlist parsing and review are captured as maintainable, reusable methods and scripts.',
+    s5p: 'The orchestration core: understanding tasks, planning, dispatching tools and reviewing results.',
+    s6p: 'AI participates in real design flows inside KiCad and other EDA tools, not just in conversation.',
+    footerTagline: 'AI Hardware Engineering Workspace',
+    footerCol: 'Product',
+    fCap: 'Capabilities',
+    fStack: 'Architecture',
+    fTop: 'Back to top',
+    archLabel: 'CircuitNexus layered architecture diagram',
+    docTitle: 'CircuitNexus | AI Hardware Engineering Workspace',
+    metaDesc: 'CircuitNexus: sub-module schematic design, component selection, design documentation, Cadence OrCAD netlist parsing, 110+ schematic review checks, circuit reasoning, PCB guidance and AI-driven KiCad EDA.',
+    ogTitle: 'CircuitNexus | AI Hardware Engineering Workspace',
+    ogDesc: 'A custom Agent and proprietary toolchain with Skills, a hardware knowledge base, MCP tools and AI-driven KiCad EDA.'
+  };
+  var ZH = {};
+  document.querySelectorAll('[data-i18n]').forEach(function (el) { ZH[el.getAttribute('data-i18n')] = el.textContent; });
+  document.querySelectorAll('[data-i18n-html]').forEach(function (el) { ZH[el.getAttribute('data-i18n-html')] = el.innerHTML; });
+  document.querySelectorAll('[data-i18n-aria]').forEach(function (el) { ZH[el.getAttribute('data-i18n-aria')] = el.getAttribute('aria-label'); });
+  ZH.docTitle = document.title;
+  ZH.metaDesc = document.querySelector('meta[name="description"]').getAttribute('content');
+  ZH.ogTitle = document.querySelector('meta[property="og:title"]').getAttribute('content');
+  ZH.ogDesc = document.querySelector('meta[property="og:description"]').getAttribute('content');
+
+  function applyLang(l, animate) {
+    root.setAttribute('data-lang', l);
+    root.lang = l === 'zh' ? 'zh-CN' : 'en';
+    try { localStorage.setItem('cnx-lang', l); } catch (e) {}
+    var heroProto = document.getElementById('heroProto');
+    heroProto.src = l === 'en' ? 'assets/ui/prototypes/theme-split-diagonal-en.jpg' : 'assets/ui/prototypes/theme-split-diagonal.png';
+    heroProto.alt = l === 'en' ? 'CircuitNexus dual-theme workspace UI preview (English)' : 'CircuitNexus 双主题工作台产品界面预览';
+    var d = l === 'en' ? EN : ZH;
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      var k = el.getAttribute('data-i18n'); if (d[k] != null) el.textContent = d[k];
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(function (el) {
+      var k = el.getAttribute('data-i18n-html'); if (d[k] != null) el.innerHTML = d[k];
+    });
+    document.querySelectorAll('[data-i18n-aria]').forEach(function (el) {
+      var k = el.getAttribute('data-i18n-aria'); if (d[k] != null) el.setAttribute('aria-label', d[k]);
+    });
+    langLabel.textContent = l === 'zh' ? 'EN' : '中';
+    langBtn.setAttribute('aria-pressed', String(l === 'en'));
+    langBtn.setAttribute('aria-label', l === 'zh' ? 'Switch to English' : '切换到中文');
+    langBtn.setAttribute('title', l === 'zh' ? '切换到英文 / Switch to English' : '切换到中文 / Switch to Chinese');
+    document.title = d.docTitle;
+    var md = document.querySelector('meta[name="description"]'); if (md && d.metaDesc) md.setAttribute('content', d.metaDesc);
+    var ot = document.querySelector('meta[property="og:title"]'); if (ot && d.ogTitle) ot.setAttribute('content', d.ogTitle);
+    var od = document.querySelector('meta[property="og:description"]'); if (od && d.ogDesc) od.setAttribute('content', d.ogDesc);
+    applyTheme(root.getAttribute('data-cnx-theme'), false);
+    if (animate && !reduceMotion) {
+      document.body.classList.remove('theme-wipe');
+      void document.body.offsetWidth;
+      document.body.classList.add('theme-wipe');
+      setTimeout(function () { document.body.classList.remove('theme-wipe'); }, 700);
+    }
+  }
+  langBtn.addEventListener('click', function () {
+    applyLang(root.getAttribute('data-lang') === 'zh' ? 'en' : 'zh', true);
+  });
+
+  /* ---------- 主题 ---------- */
+  var themeBtn = document.getElementById('themeToggle');
+  var brandLogo = document.getElementById('brandLogo');
+  var footerLogo = document.getElementById('footerLogo');
+  var metaColor = document.getElementById('metaThemeColor');
+  var metaOg = document.getElementById('metaOgImage');
+
+  function applyTheme(t, animate) {
+    root.setAttribute('data-cnx-theme', t);
+    try { localStorage.setItem('cnx-theme', t); } catch (e) {}
+    var dark = t === 'dark';
+    brandLogo.src = dark ? 'assets/brand/logo/circuitnexus-logo-en-dark.svg' : 'assets/brand/logo/circuitnexus-logo-en-light.svg';
+    footerLogo.src = brandLogo.src;
+    metaColor.setAttribute('content', dark ? '#0D0E10' : '#FBF7EF');
+    metaOg.setAttribute('content', dark ? 'https://circuit.1616516.xyz/assets/exports/website/og-card-dark-1200.png' : 'https://circuit.1616516.xyz/assets/exports/website/og-card-light-1200.png');
+    themeBtn.setAttribute('aria-pressed', String(!dark));
+    var en = root.getAttribute('data-lang') === 'en';
+    var themeLabel = dark ? (en ? 'Switch to light theme' : '切换到亮色主题') : (en ? 'Switch to dark theme' : '切换到深色主题');
+    themeBtn.setAttribute('aria-label', themeLabel);
+    themeBtn.setAttribute('title', themeLabel);
+    if (animate && !reduceMotion) {
+      document.body.classList.remove('theme-wipe');
+      void document.body.offsetWidth;
+      document.body.classList.add('theme-wipe');
+      setTimeout(function () { document.body.classList.remove('theme-wipe'); }, 700);
+    }
+  }
+  applyTheme(root.getAttribute('data-cnx-theme'), false);
+  applyLang(root.getAttribute('data-lang') || 'zh', false);
+
+  themeBtn.addEventListener('click', function () {
+    applyTheme(root.getAttribute('data-cnx-theme') === 'dark' ? 'light' : 'dark', true);
+  });
+
+  /* 未手动选择过时，跟随系统偏好变化 */
+  var sys = window.matchMedia('(prefers-color-scheme: light)');
+  if (sys.addEventListener) {
+    sys.addEventListener('change', function (e) {
+      var saved = null;
+      try { saved = localStorage.getItem('cnx-theme'); } catch (err) {}
+      if (!saved) applyTheme(e.matches ? 'light' : 'dark', true);
+    });
+  }
+
+  /* ---------- 滚动入场 + 当前区块高亮 ---------- */
+  var revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold: .12, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(function (el) { io.observe(el); });
+  } else {
+    revealEls.forEach(function (el) { el.classList.add('in'); });
+  }
+
+  /* ---------- 数字计数 ---------- */
+  var counters = document.querySelectorAll('.counter');
+  function countUp(el) {
+    var target = parseInt(el.getAttribute('data-target'), 10) || 0;
+    var suffix = el.getAttribute('data-suffix') || '';
+    if (reduceMotion) { el.textContent = target + suffix; return; }
+    el.textContent = '0' + suffix;
+    var start = performance.now(), dur = 1100;
+    function tick(now) {
+      var p = Math.min((now - start) / dur, 1);
+      el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))) + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  if ('IntersectionObserver' in window) {
+    var co = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { countUp(en.target); co.unobserve(en.target); } });
+    }, { threshold: .6 });
+    counters.forEach(function (c) { co.observe(c); });
+  } else { counters.forEach(countUp); }
+
+  /* ---------- 桌面端：鼠标柔光 / 卡片光晕 / 轻微视差 ---------- */
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches && !reduceMotion) {
+    document.querySelectorAll('.cap-card').forEach(function (card) {
+      card.addEventListener('pointermove', function (e) {
+        var r = card.getBoundingClientRect();
+        card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      });
+    });
+    var heroVisual = document.getElementById('heroVisual');
+    window.addEventListener('scroll', function () {
+      var y = Math.min(window.scrollY, 600);
+      heroVisual.style.transform = 'translateY(' + (y * .035) + 'px)';
+    }, { passive: true });
+  }
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+  /* 首帧结束后恢复过渡与动效 */
+  requestAnimationFrame(function () {
+    requestAnimationFrame(function () { root.classList.remove('is-booting'); });
+  });
+})();
+</script>
+</body>
+</html>

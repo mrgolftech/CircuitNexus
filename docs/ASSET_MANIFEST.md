@@ -8,6 +8,9 @@
 | `assets/brand/logo/circuitnexus-logo.svg` | SVG | 横排品牌 Logo | V1 几何重建基线 |
 | `assets/brand/logo/circuitnexus-logo-dark.svg` | SVG | 深色背景字标 | V1 |
 | `assets/brand/logo/circuitnexus-logo-light.svg` | SVG | 亮色背景字标 | V1 |
+| `assets/brand/logo/circuitnexus-logo-en-dark.svg` | SVG | 官网纯英文字标（深色背景） | V1 英文变体 |
+| `assets/brand/logo/circuitnexus-logo-en-light.svg` | SVG | 官网纯英文字标（亮色背景） | V1 英文变体 |
+| `assets/ui/prototypes/theme-split-diagonal-en.jpg` | JPG | 官网英文版 Hero 产品 UI 图 | 2026-11-13 用户提供 |
 | `assets/brand/logo/circuitnexus-symbol-gold.svg` | SVG | 独立 Logo 图形 | V1 |
 | `assets/brand/logo/circuitnexus-symbol-hero-gold.svg` | SVG | 大型宣传渐变金图形 | V1 |
 | `assets/brand/app-icons/favicon.svg` | SVG | 小尺寸网站浏览器标签 | V1 |
